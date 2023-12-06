@@ -1,0 +1,114 @@
+{% extends "topfragmarket/pages/base.html" %}
+{% load static %}
+
+{% block content %}
+<main class="flex flex-col">
+    <section>
+        <div class="container mx-auto px-5 py-10 flex flex-col">
+            <h1 class="mb-5 text-3xl font-bold">Listing Category Name</h1>
+
+            <div class="flex flex-wrap gap-5">
+                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
+                    <option selected>Category</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                </select>
+
+                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
+                    <option selected>Recent</option>
+                    <option selected>Old</option>
+                </select>
+
+                <div class="border border-gray-300"></div>
+
+                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
+                    <option selected>Condition</option>
+                    <option value="US">Brand New</option>
+                    <option value="CA">Lightly Used</option>
+                    <option value="FR">Well Used</option>
+                    <option value="DE">Germany</option>
+                </select>
+
+                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
+                    <option selected>Price</option>
+                    <option value="US">High to Low</option>
+                    <option value="CA">Low to High</option>
+                </select>
+
+                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
+                    <option selected>Deal Option</option>
+                    <option value="US">Meetup</option>
+                    <option value="CA">Mailing</option>
+                    <option value="FR">Delivery</option>
+                </select>
+
+                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
+                    <option selected>Location</option>
+                    <option value="US">Nearby</option>
+                    <option value="CA">Cavite</option>
+                    <option value="FR">Delivery</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="min-h-screen">
+        <div class="container mx-auto px-5 pb-16 flex flex-col">
+            <div x-data="allListing" class="flex flex-wrap gap-5">
+                <template x-for="listing in listings">
+                    <div class="bg-white rounded shadow overflow-hidden">
+                        <div class="group px-3 bg-white rounded-t shadow">
+                            <a href="#" class="flex items-center gap-x-3 py-2.5 ">
+                                <div class="w-8 h-8 rounded-full overflow-hidden">
+                                    <img src="{% static 'images/blank-profile-picture.png' %}" alt="" class="object-cover object-center overflow-hidden"/>
+                                </div>
+                                <p class="group-hover:underline">User</p>
+                            </a>
+                        </div>
+                        <a href="#" class="group block">
+                            <div class="w-[250px] h-[320px] bg-white overflow-hidden">
+                                <div
+                                    class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
+                                >
+                                    <img
+                                        class="object-cover object-center"
+                                        alt="hero"
+                                        src="{% static 'images/items/keyboard.jpg' %}"
+                                    />
+                                </div>
+                                <div class="w-full h-1/2 py-2.5 px-3">
+                                    <p
+                                        class="group-hover:underline font-semibold truncate"
+                                    >
+                                        Item 1
+                                    </p>
+                                    <h3
+                                        class="text-[#258f41] font-semibold text-2xl"
+                                    >
+                                        P 200.00
+                                    </h3>
+                                    <p class="text-sm font-light">
+                                        Lightly used
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('allListing', () => ({
+            listings: ['', '', '', '', '', '', '', '', '', '',]
+        }));
+    });
+</script>
+{% endblock scripts %}

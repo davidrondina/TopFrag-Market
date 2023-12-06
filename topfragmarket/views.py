@@ -9,3 +9,6 @@ def login(request):
 
 def categories(request):
     return render(request, 'topfragmarket/pages/categories.html')
+
+def listings(request):
+    return render(request, 'topfragmarket/pages/listings.html')
