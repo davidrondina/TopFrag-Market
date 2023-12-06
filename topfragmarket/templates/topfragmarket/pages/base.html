@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TopFrag Market</title>
+
+        <link rel="stylesheet" href="{% static "css/style.css" %}" />
+        <!-- Lightest accent - #2eb853 -->
+        <!-- Midtone - #258f41 -->
+        <!-- Darkest accent - #1d7535 -->
+
+        <link
+            rel="shortcut icon"
+            href="{% static 'images/favicon.ico' %}"
+            type="image/x-icon"
+        />
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+            rel="stylesheet"
+        />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
+        />
+
+        <style>
+            [x-cloak] {
+                display: none !important;
+            }
+        </style>
+
+        <link
+            href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+            rel="stylesheet"
+        />
+
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.1/dist/cdn.min.js"
+        ></script>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" /> -->
+    </head>
+    <body class="bg-gray-100">
+        {% include "topfragmarket/components/header.html" %}
+        {% block content %} {% endblock %}
+        {% include "topfragmarket/components/footer.html" %}
+
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
+    </body>
+</html>

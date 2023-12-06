@@ -1,0 +1,743 @@
+{% extends "topfragmarket/pages/base.html" %} 
+{% load static %} 
+{% block content %}
+<main
+    x-data="{
+        keywords: ['Keyboards', 'Desktops', 'Videogames', 'Mobile Phones', 'Laptops', 'Headsets', 'Gaming Mouse', 'Console'],
+        keywordsIndex: 0,
+        items: [1, 2, 3, 4],
+        featuredCategories: ['Desktops', 'Laptops & Notebooks', 'Consoles', 'Videogames', 'Accessories'],
+
+        displayKeyword() {
+            if (this.keywordsIndex > this.keywords.length - 1) {
+                this.keywordsIndex = 0;
+            }
+
+            $refs.keywordDisplay.textContent = this.keywords[this.keywordsIndex];
+
+            this.keywordsIndex++;
+
+            console.log(this.keywords[this.keywordsIndex]);
+
+            setTimeout(() => this.displayKeyword(), 1800);
+        }
+    }"
+    x-init="displayKeyword()"
+    class="flex flex-col"
+>
+    {% comment %} HERO SECTION {% endcomment %}
+    <section class="h-screen bg-white text-gray-600 body-font">
+        <div
+            class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center"
+        >
+            <div
+                class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center"
+            >
+                <h1
+                    class="title-font sm:text-6xl text-lg mb-4 font-bold text-gray-900"
+                >
+                    Looking for <br class="hidden lg:inline-block" /><span
+                        x-ref="keywordDisplay"
+                        class="text-[#258f41]"
+                    ></span
+                    ><span class="text-[#258f41]">?</span>
+                </h1>
+                <p class="mb-8 leading-relaxed">
+                    Browse hundreds of items sold by other people.
+                </p>
+                <div class="flex justify-center">
+                    <button
+                        class="bg-[#258f41] hover:bg-[#1d7535] inline-flex text-white font-semibold border-0 focus:outline-none rounded text-lg rounded"
+                    >
+                        <a
+                            href="{% url 'topfragmarket:categories' %}"
+                            class="px-6 py-2"
+                            >Start Browsing</a
+                        >
+                    </button>
+                </div>
+            </div>
+            <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+                <img
+                    class="object-cover object-center rounded"
+                    alt="hero"
+                    src="static/images/hero.png"
+                />
+            </div>
+        </div>
+    </section>
+    {% comment %} FEATURED CATEGORIES {% endcomment %}
+    <section data-aos="fade-up" data-aos-easing="ease-in-out" class="body-font">
+        <div
+            class="container mx-auto px-5 py-24 md:flex-row flex-col items-center"
+        >
+            <h2 class="mb-5 font-bold text-2xl">Featured Categories</h2>
+            <div class="flex justify-between gap-x-4">
+                <div class="group">
+                    <a href="#" class="flex">
+                        <div
+                            style="
+                                background-image: url('static/images/items/desktop.jpg');
+                            "
+                            class="w-[500px] max-w-[200px] h-[200px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
+                        >
+                            <div
+                                class="w-full max-w-[100%] h-full py-2.5 px-4 bg-gradient-to-t from-black/60 hover:from-black/80 flex flex-col justify-end"
+                            >
+                                <h3
+                                    class="inline-flex justify-between items-center text-white"
+                                >
+                                    <span
+                                        x-text="featuredCategories[0]"
+                                        class="group-hover:underline font-semibold text-2xl"
+                                    ></span>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="32"
+                                        height="32"
+                                    >
+                                        <path
+                                            d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"
+                                            fill="rgba(255,255,255,1)"
+                                        ></path>
+                                    </svg>
+                                </h3>
+                                <p class="text-white">100+ listings</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="group">
+                    <a href="#" class="flex">
+                        <div
+                            style="
+                                background-image: url('static/images/items/laptop.jpg');
+                            "
+                            class="w-[500px] max-w-[200px] h-[200px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
+                        >
+                            <div
+                                class="w-full max-w-[100%] h-full py-2.5 px-4 bg-gradient-to-t from-black/60 hover:from-black/80 flex flex-col justify-end"
+                            >
+                                <h3
+                                    class="inline-flex justify-between items-center text-white"
+                                >
+                                    <span
+                                        x-text="featuredCategories[1]"
+                                        class="group-hover:underline font-semibold text-2xl"
+                                    ></span>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="32"
+                                        height="32"
+                                    >
+                                        <path
+                                            d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"
+                                            fill="rgba(255,255,255,1)"
+                                        ></path>
+                                    </svg>
+                                </h3>
+                                <p class="text-white">100+ listings</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="group">
+                    <a href="#" class="flex">
+                        <div
+                            style="
+                                background-image: url('static/images/items/console.jpg');
+                            "
+                            class="w-[500px] max-w-[200px] h-[200px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
+                        >
+                            <div
+                                class="w-full max-w-[100%] h-full py-2.5 px-4 bg-gradient-to-t from-black/60 hover:from-black/80 flex flex-col justify-end"
+                            >
+                                <h3
+                                    class="inline-flex justify-between items-center text-white"
+                                >
+                                    <span
+                                        x-text="featuredCategories[2]"
+                                        class="group-hover:underline font-semibold text-2xl"
+                                    ></span>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="32"
+                                        height="32"
+                                    >
+                                        <path
+                                            d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"
+                                            fill="rgba(255,255,255,1)"
+                                        ></path>
+                                    </svg>
+                                </h3>
+                                <p class="text-white">100+ listings</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="group">
+                    <a href="#" class="flex">
+                        <div
+                            style="
+                                background-image: url('static/images/items/videogame.jpg');
+                            "
+                            class="w-[500px] max-w-[200px] h-[200px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
+                        >
+                            <div
+                                class="w-full max-w-[100%] h-full py-2.5 px-4 bg-gradient-to-t from-black/60 hover:from-black/80 flex flex-col justify-end"
+                            >
+                                <h3
+                                    class="inline-flex justify-between items-center text-white"
+                                >
+                                    <span
+                                        x-text="featuredCategories[3]"
+                                        class="group-hover:underline font-semibold text-2xl"
+                                    ></span>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="32"
+                                        height="32"
+                                    >
+                                        <path
+                                            d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"
+                                            fill="rgba(255,255,255,1)"
+                                        ></path>
+                                    </svg>
+                                </h3>
+                                <p class="text-white">100+ listings</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="group">
+                    <a href="#" class="flex">
+                        <div
+                            style="
+                                background-image: url('static/images/items/accessory.jpg');
+                            "
+                            class="w-[500px] max-w-[200px] h-[200px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
+                        >
+                            <div
+                                class="w-full max-w-[100%] h-full py-2.5 px-4 bg-gradient-to-t from-black/60 hover:from-black/80 flex flex-col justify-end"
+                            >
+                                <h3
+                                    class="inline-flex justify-between items-center text-white"
+                                >
+                                    <span
+                                        x-text="featuredCategories[4]"
+                                        class="group-hover:underline font-semibold text-2xl"
+                                    ></span>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="32"
+                                        height="32"
+                                    >
+                                        <path
+                                            d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"
+                                            fill="rgba(255,255,255,1)"
+                                        ></path>
+                                    </svg>
+                                </h3>
+                                <p class="text-white">100+ listings</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% comment %} AVAILABLE ACCESSORIES {% endcomment %}
+    <section data-aos="fade-up" data-aos-easing="ease-in-out" class="body-font">
+        <div
+            class="container mx-auto px-5 py-24 md:flex-row flex-col items-center"
+        >
+            <h2 class="mb-5 font-bold text-2xl">
+                Available acccessories in Bacoor, Cavite
+            </h2>
+            <div class="relative h-[380px] flex items-center">
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full flex justify-center gap-x-8"
+                >
+                    <template x-for="item in items">
+                        <div class="bg-white rounded shadow overflow-hidden">
+                            <div
+                                class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
+                            >
+                                <div
+                                    class="w-8 h-8 rounded-full overflow-hidden"
+                                >
+                                    <img
+                                        src="{% static 'images/blank-profile-picture.png' %}"
+                                        alt=""
+                                        class="object-cover object-center overflow-hidden"
+                                    />
+                                </div>
+                                <p>
+                                    <a href="#" class="hover:underline">User</a>
+                                </p>
+                            </div>
+                            <a href="#" class="group block">
+                                <div
+                                    class="w-[250px] h-[320px] bg-white overflow-hidden"
+                                >
+                                    <div
+                                        class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
+                                    >
+                                        <img
+                                            class="object-cover object-center"
+                                            alt="hero"
+                                            src="{% static 'images/items/keyboard.jpg' %}"
+                                        />
+                                    </div>
+                                    <div class="w-full h-1/2 py-2.5 px-3">
+                                        <p
+                                            class="group-hover:underline font-semibold truncate"
+                                        >
+                                            Item 1
+                                        </p>
+                                        <h3
+                                            class="text-[#258f41] font-semibold text-2xl"
+                                        >
+                                            P 200.00
+                                        </h3>
+                                        <p class="text-sm font-light">
+                                            Lightly used
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </template>
+                </div>
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full flex justify-between"
+                >
+                    <button
+                        class="w-16 h-16 p-4 bg-white inline-flex justify-center items-center text-xl text-gray-900 rounded-full shadow"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M11.8284 12.0005L14.6569 14.8289L13.2426 16.2431L9 12.0005L13.2426 7.75781L14.6569 9.17203L11.8284 12.0005Z"
+                            ></path>
+                        </svg>
+                    </button>
+
+                    <button
+                        class="w-16 h-16 p-4 bg-white inline-flex justify-center items-center text-xl text-gray-900 rounded-full shadow"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M12.1717 12.0005L9.34326 9.17203L10.7575 7.75781L15.0001 12.0005L10.7575 16.2431L9.34326 14.8289L12.1717 12.0005Z"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% comment %} AVAILABLE VIDEOGAMES {% endcomment %}
+    <section data-aos="fade-up" data-aos-easing="ease-in-out" class="body-font">
+        <div
+            class="container mx-auto px-5 py-24 md:flex-row flex-col items-center"
+        >
+            <h2 class="mb-5 font-bold text-2xl">
+                Available videogames in Bacoor, Cavite
+            </h2>
+            <div class="relative h-[380px] flex items-center">
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full flex justify-center gap-x-8"
+                >
+                    <template x-for="item in items">
+                        <div class="bg-white rounded shadow overflow-hidden">
+                            <div
+                                class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
+                            >
+                                <div
+                                    class="w-8 h-8 rounded-full overflow-hidden"
+                                >
+                                    <img
+                                        src="{% static 'images/blank-profile-picture.png' %}"
+                                        alt=""
+                                        class="object-cover object-center overflow-hidden"
+                                    />
+                                </div>
+                                <p>
+                                    <a href="#" class="hover:underline">User</a>
+                                </p>
+                            </div>
+                            <a href="#" class="group block">
+                                <div
+                                    class="w-[250px] h-[320px] bg-white overflow-hidden"
+                                >
+                                    <div
+                                        class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
+                                    >
+                                        <img
+                                            class="object-cover object-center"
+                                            alt="hero"
+                                            src="{% static 'images/items/videogame.jpg' %}"
+                                        />
+                                    </div>
+                                    <div class="w-full h-1/2 py-2.5 px-3">
+                                        <p
+                                            class="group-hover:underline font-semibold truncate"
+                                        >
+                                            Item 1
+                                        </p>
+                                        <h3
+                                            class="text-[#258f41] font-semibold text-2xl"
+                                        >
+                                            P 200.00
+                                        </h3>
+                                        <p class="text-sm font-light">
+                                            Lightly used
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </template>
+                </div>
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full flex justify-between"
+                >
+                    <button
+                        class="w-16 h-16 p-4 bg-white inline-flex justify-center items-center text-xl text-gray-900 rounded-full shadow"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M11.8284 12.0005L14.6569 14.8289L13.2426 16.2431L9 12.0005L13.2426 7.75781L14.6569 9.17203L11.8284 12.0005Z"
+                            ></path>
+                        </svg>
+                    </button>
+
+                    <button
+                        class="w-16 h-16 p-4 bg-white inline-flex justify-center items-center text-xl text-gray-900 rounded-full shadow"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M12.1717 12.0005L9.34326 9.17203L10.7575 7.75781L15.0001 12.0005L10.7575 16.2431L9.34326 14.8289L12.1717 12.0005Z"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section data-aos="fade-up" data-aos-easing="ease-in-out" class="body-font">
+        <div
+            class="container mx-auto px-5 py-24 md:flex-row flex-col items-center"
+        >
+            <h2 class="mb-5 font-bold text-2xl">Newly listed items</h2>
+            <div class="relative h-[380px] flex items-center">
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full flex justify-center gap-x-8"
+                >
+                    <div class="bg-white rounded shadow overflow-hidden">
+                        <div
+                            class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
+                        >
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img
+                                    src="{% static 'images/blank-profile-picture.png' %}"
+                                    alt=""
+                                    class="object-cover object-center overflow-hidden"
+                                />
+                            </div>
+                            <p>
+                                <a href="#" class="hover:underline">User</a>
+                            </p>
+                        </div>
+                        <a href="#" class="group block">
+                            <div
+                                class="w-[250px] h-[320px] bg-white overflow-hidden"
+                            >
+                                <div
+                                    class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
+                                >
+                                    <img
+                                        class="object-cover object-center"
+                                        alt="hero"
+                                        src="{% static 'images/items/keyboard.jpg' %}"
+                                    />
+                                </div>
+                                <div class="w-full h-1/2 py-2.5 px-3">
+                                    <p
+                                        class="group-hover:underline font-semibold truncate"
+                                    >
+                                        Item 1
+                                    </p>
+                                    <h3
+                                        class="text-[#258f41] font-semibold text-2xl"
+                                    >
+                                        P 200.00
+                                    </h3>
+                                    <p class="text-sm font-light">
+                                        Lightly used
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-white rounded shadow overflow-hidden">
+                        <div
+                            class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
+                        >
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img
+                                    src="{% static 'images/blank-profile-picture.png' %}"
+                                    alt=""
+                                    class="object-cover object-center overflow-hidden"
+                                />
+                            </div>
+                            <p>
+                                <a href="#" class="hover:underline">User</a>
+                            </p>
+                        </div>
+                        <a href="#" class="group block">
+                            <div
+                                class="w-[250px] h-[320px] bg-white overflow-hidden"
+                            >
+                                <div
+                                    class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
+                                >
+                                    <img
+                                        class="object-cover object-center"
+                                        alt="hero"
+                                        src="{% static 'images/items/videogame.jpg' %}"
+                                    />
+                                </div>
+                                <div class="w-full h-1/2 py-2.5 px-3">
+                                    <p
+                                        class="group-hover:underline font-semibold truncate"
+                                    >
+                                        Item 1
+                                    </p>
+                                    <h3
+                                        class="text-[#258f41] font-semibold text-2xl"
+                                    >
+                                        P 200.00
+                                    </h3>
+                                    <p class="text-sm font-light">
+                                        Lightly used
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="bg-white rounded shadow overflow-hidden">
+                        <div
+                            class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
+                        >
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img
+                                    src="{% static 'images/blank-profile-picture.png' %}"
+                                    alt=""
+                                    class="object-cover object-center overflow-hidden"
+                                />
+                            </div>
+                            <p>
+                                <a href="#" class="hover:underline">User</a>
+                            </p>
+                        </div>
+                        <a href="#" class="group block">
+                            <div
+                                class="w-[250px] h-[320px] bg-white overflow-hidden"
+                            >
+                                <div
+                                    class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
+                                >
+                                    <img
+                                        class="object-cover object-center"
+                                        alt="hero"
+                                        src="{% static 'images/items/keyboard.jpg' %}"
+                                    />
+                                </div>
+                                <div class="w-full h-1/2 py-2.5 px-3">
+                                    <p
+                                        class="group-hover:underline font-semibold truncate"
+                                    >
+                                        Item 1
+                                    </p>
+                                    <h3
+                                        class="text-[#258f41] font-semibold text-2xl"
+                                    >
+                                        P 200.00
+                                    </h3>
+                                    <p class="text-sm font-light">
+                                        Lightly used
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="rounded shadow overflow-hidden">
+                        <div
+                            class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
+                        >
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img
+                                    src="{% static 'images/blank-profile-picture.png' %}"
+                                    alt=""
+                                    class="object-cover object-center overflow-hidden"
+                                />
+                            </div>
+                            <p>
+                                <a href="#" class="hover:underline">User</a>
+                            </p>
+                        </div>
+                        <a href="#" class="group block">
+                            <div
+                                class="w-[250px] h-[320px] bg-white overflow-hidden"
+                            >
+                                <div
+                                    class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
+                                >
+                                    <img
+                                        class="object-cover object-center"
+                                        alt="hero"
+                                        src="{% static 'images/items/videogame.jpg' %}"
+                                    />
+                                </div>
+                                <div class="w-full h-1/2 py-2.5 px-3">
+                                    <p
+                                        class="group-hover:underline font-semibold truncate"
+                                    >
+                                        Item 1
+                                    </p>
+                                    <h3
+                                        class="text-[#258f41] font-semibold text-2xl"
+                                    >
+                                        P 200.00
+                                    </h3>
+                                    <p class="text-sm font-light">
+                                        Lightly used
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full flex justify-between"
+                >
+                    <button
+                        class="w-16 h-16 p-4 bg-white inline-flex justify-center items-center text-xl text-gray-900 rounded-full shadow"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M11.8284 12.0005L14.6569 14.8289L13.2426 16.2431L9 12.0005L13.2426 7.75781L14.6569 9.17203L11.8284 12.0005Z"
+                            ></path>
+                        </svg>
+                    </button>
+
+                    <button
+                        class="w-16 h-16 p-4 bg-white inline-flex justify-center items-center text-xl text-gray-900 rounded-full shadow"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M12.1717 12.0005L9.34326 9.17203L10.7575 7.75781L15.0001 12.0005L10.7575 16.2431L9.34326 14.8289L12.1717 12.0005Z"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="body-font">
+        <div
+            class="container mx-auto px-5 py-24 md:flex-row flex-col justify-center items-center"
+        >
+            <h2 class="mb-5 text-center font-bold text-3xl">
+                <span class="text-[#258f41]">Level up</span> your marketplace
+                experience
+            </h2>
+
+            <div class="w-full px-10 py-8 flex">
+                <div class="grow-[1] flex flex-col gap-y-4 justify-center">
+                    <div class="w-full flex justify-center">
+                        <img
+                            src="{% static 'images/smartphone-buy.png' %}"
+                            alt=""
+                            class="h-[100px] text-center"
+                        />
+                    </div>
+                    <div>
+                        <p class="text-center">
+                            Buy unique items in good condition for a fraction of
+                            the cost
+                        </p>
+                    </div>
+                </div>
+                <div class="grow-[1] flex flex-col gap-y-4 justify-center">
+                    <div class="w-full flex justify-center">
+                        <img
+                            src="{% static 'images/trade.png' %}"
+                            alt=""
+                            class="h-[100px] text-center"
+                        />
+                    </div>
+                    <div>
+                        <p class="text-center">
+                            List your unused items in just a few click
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="body-font mb-10">
+        <div
+            class="container mx-auto px-5 py-24 md:flex-row flex-col justify-center items-center"
+        >
+            <h2 class="mb-5 text-center font-bold text-3xl">
+                Join the <span class="text-[#258f41]">Forum</span>
+            </h2>
+
+            <p class="mb-4 text-center">
+                Interact with the community and gain insights.
+            </p>
+
+            <div class="flex justify-center">
+                <button
+                    class="bg-[#258f41] hover:bg-[#1d7535] inline-flex text-white font-semibold border-0 focus:outline-none rounded text-lg rounded"
+                >
+                    <a href="#" class="px-10 py-2">Join</a>
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

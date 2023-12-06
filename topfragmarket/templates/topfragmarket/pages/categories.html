@@ -1,0 +1,305 @@
+{% extends "topfragmarket/pages/base.html" %}
+{% load static %}
+{% block content %}
+<main
+    x-data="{ categories: ['Desktops', 'Laptops & Notebooks', 'Phones & Tablets', 'Consoles', 'Videogames', 'Audio', 'Accessories'] }"
+    class="flex flex-col"
+>
+    <section
+        data-aos="fade-up"
+        data-aos-easing="ease-in-out"
+        class="body-font min-h-screen"
+    >
+        <div
+            class="container mx-auto px-5 py-24 md:flex-row flex-col items-center"
+        >
+            <h1 class="mb-5 font-bold text-3xl">
+                What kind of item are you looking for?
+            </h1>
+            <div class="flex flex-wrap justify-center gap-5">
+                <div class="group w-[49%]">
+                    <a href="#" class="flex">
+                        <div
+                            style="
+                                background-image: url('/static/images/items/desktop.jpg');
+                            "
+                            class="w-full h-[180px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
+                        >
+                            <div
+                                class="w-full max-w-[100%] h-full py-2.5 px-5 bg-gradient-to-t from-black/60 hover:from-black/80 flex flex-col justify-end"
+                            >
+                                <h3
+                                    class="inline-flex justify-between items-center text-white"
+                                >
+                                    <p class="group-hover:underline">
+                                        <span
+                                            x-text="categories[0]"
+                                            class="font-bold text-2xl"
+                                        ></span>
+                                    </p>
+                                    <div>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            width="32"
+                                            height="32"
+                                        >
+                                            <path
+                                                d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"
+                                                fill="rgba(255,255,255,1)"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </h3>
+                                <p class="text-white">100+ listings</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="group w-[49%]">
+                    <a href="#" class="flex">
+                        <div
+                            style="
+                                background-image: url('/static/images/items/laptop.jpg');
+                            "
+                            class="w-full h-[180px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
+                        >
+                            <div
+                                class="w-full max-w-[100%] h-full py-2.5 px-5 bg-gradient-to-t from-black/60 hover:from-black/80 flex flex-col justify-end"
+                            >
+                                <h3
+                                    class="inline-flex justify-between items-center text-white"
+                                >
+                                    <p class="group-hover:underline">
+                                        <span
+                                            x-text="categories[1]"
+                                            class="font-bold text-2xl"
+                                        ></span>
+                                    </p>
+                                    <div>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            width="32"
+                                            height="32"
+                                        >
+                                            <path
+                                                d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"
+                                                fill="rgba(255,255,255,1)"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </h3>
+                                <p class="text-white">100+ listings</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="group w-[49%]">
+                    <a href="#" class="flex">
+                        <div
+                            style="
+                                background-image: url('/static/images/items/smartphone.jpg');
+                            "
+                            class="w-full h-[180px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
+                        >
+                            <div
+                                class="w-full max-w-[100%] h-full py-2.5 px-5 bg-gradient-to-t from-black/60 hover:from-black/80 flex flex-col justify-end"
+                            >
+                                <h3
+                                    class="inline-flex justify-between items-center text-white"
+                                >
+                                    <p class="group-hover:underline">
+                                        <span
+                                            x-text="categories[2]"
+                                            class="font-bold text-2xl"
+                                        ></span>
+                                    </p>
+                                    <div>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            width="32"
+                                            height="32"
+                                        >
+                                            <path
+                                                d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"
+                                                fill="rgba(255,255,255,1)"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </h3>
+                                <p class="text-white">100+ listings</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="group w-[49%]">
+                    <a href="#" class="flex">
+                        <div
+                            style="
+                                background-image: url('/static/images/items/console.jpg');
+                            "
+                            class="w-full h-[180px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
+                        >
+                            <div
+                                class="w-full max-w-[100%] h-full py-2.5 px-5 bg-gradient-to-t from-black/60 hover:from-black/80 flex flex-col justify-end"
+                            >
+                                <h3
+                                    class="inline-flex justify-between items-center text-white"
+                                >
+                                    <p class="group-hover:underline">
+                                        <span
+                                            x-text="categories[3]"
+                                            class="font-bold text-2xl"
+                                        ></span>
+                                    </p>
+                                    <div>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            width="32"
+                                            height="32"
+                                        >
+                                            <path
+                                                d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"
+                                                fill="rgba(255,255,255,1)"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </h3>
+                                <p class="text-white">100+ listings</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="group w-[49%]">
+                    <a href="#" class="flex">
+                        <div
+                            style="
+                                background-image: url('/static/images/items/videogame.jpg');
+                            "
+                            class="w-full h-[180px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
+                        >
+                            <div
+                                class="w-full max-w-[100%] h-full py-2.5 px-5 bg-gradient-to-t from-black/60 hover:from-black/80 flex flex-col justify-end"
+                            >
+                                <h3
+                                    class="inline-flex justify-between items-center text-white"
+                                >
+                                    <p class="group-hover:underline">
+                                        <span
+                                            x-text="categories[4]"
+                                            class="font-bold text-2xl"
+                                        ></span>
+                                    </p>
+                                    <div>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            width="32"
+                                            height="32"
+                                        >
+                                            <path
+                                                d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"
+                                                fill="rgba(255,255,255,1)"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </h3>
+                                <p class="text-white">100+ listings</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="group w-[49%]">
+                    <a href="#" class="flex">
+                        <div
+                            style="
+                                background-image: url('/static/images/items/headphones.jpg');
+                            "
+                            class="w-full h-[180px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
+                        >
+                            <div
+                                class="w-full max-w-[100%] h-full py-2.5 px-5 bg-gradient-to-t from-black/60 hover:from-black/80 flex flex-col justify-end"
+                            >
+                                <h3
+                                    class="inline-flex justify-between items-center text-white"
+                                >
+                                    <p class="group-hover:underline">
+                                        <span
+                                            x-text="categories[5]"
+                                            class="font-bold text-2xl"
+                                            >Desktops & Laptops</span
+                                        >
+                                    </p>
+                                    <div>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            width="32"
+                                            height="32"
+                                        >
+                                            <path
+                                                d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"
+                                                fill="rgba(255,255,255,1)"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </h3>
+                                <p class="text-white">100+ listings</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="group w-[49%]">
+                    <a href="#" class="flex">
+                        <div
+                            style="
+                                background-image: url('/static/images/items/accessory.jpg');
+                            "
+                            class="w-full h-[180px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
+                        >
+                            <div
+                                class="w-full max-w-[100%] h-full py-2.5 px-5 bg-gradient-to-t from-black/60 hover:from-black/80 flex flex-col justify-end"
+                            >
+                                <h3
+                                    class="inline-flex justify-between items-center text-white"
+                                >
+                                    <p class="group-hover:underline">
+                                        <span
+                                            x-text="categories[6]"
+                                            class="font-bold text-2xl"
+                                            >Desktops & Laptops</span
+                                        >
+                                    </p>
+                                    <div>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            width="32"
+                                            height="32"
+                                        >
+                                            <path
+                                                d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"
+                                                fill="rgba(255,255,255,1)"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </h3>
+                                <p class="text-white">100+ listings</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

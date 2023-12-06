@@ -1,0 +1,65 @@
+{% extends "topfragmarket/pages/base.html" %} 
+{% load static %} 
+{% block content %}
+<main class="flex flex-col">
+    <section
+        class="h-screen flex justify-center items-center text-gray-600 body-font"
+    >
+        <div class="w-[30vw] px-10 py-16 bg-white rounded shadow">
+            <h1 class="mb-10 text-[#258f41] text-center text-2xl uppercase font-bold">
+                Login
+            </h1>
+
+            <form method="get">
+                <div class="mb-6">
+                    <label
+                        for="default-input"
+                        class="block mb-2 font-medium text-gray-900"
+                        >Username</label
+                    >
+                    <input
+                        type="text"
+                        id="default-input"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Enter your username"
+                    />
+                </div>
+
+                <div class="mb-6">
+                    <label
+                        for="default-input"
+                        class="block mb-2 font-medium text-gray-900"
+                        >Password</label
+                    >
+                    <input
+                        type="text"
+                        id="default-input"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Enter your password"
+                    />
+                    <p class="mt-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-700"
+                            >Forgot password?</a
+                        >
+                    </p>
+                </div>
+
+                <div class="flex justify-center">
+                    <button
+                        class="bg-[#258f41] hover:bg-[#1d7535] w-full text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded"
+                    >
+                        Enter
+                    </button>
+                </div>
+
+                <p class="mt-2">
+                    Don't have an account?
+                    <a href="#" class="text-blue-600 hover:text-blue-700"
+                        >Register</a
+                    >
+                </p>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}

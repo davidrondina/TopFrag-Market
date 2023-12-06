@@ -1,0 +1,104 @@
+{% load static %}
+<header
+    class="z-20 sticky top-0 left-0 text-gray-600 bg-white body-font border-b border-gray-300"
+>
+    <div
+        class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+    >
+        <a
+            href="{% url 'topfragmarket:home' %}"
+            class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
+        >
+            <img src="{% static 'images/favicon.ico' %}" alt="TopFrag Market Logo" class="w-12 h-12 object-cover object-center">
+            <span class="ml text-xl font-semibold"
+                ><span class="text-[#258f41]">TOPFRAG</span> MARKET</span
+            >
+        </a>
+        <nav
+            class="md:ml-auto md:mr-auto flex flex-wrap gap-x-5 items-center text-base justify-center"
+        >
+            <div
+                x-data="{ categories: ['Desktops', 'Laptops & Notebooks', 'Phones & Tablets', 'Consoles', 'Videogames', 'Audio', 'Accessories'],categoryMenuShow: false }"
+                class="relative"
+            >
+                <button
+                    @click="categoryMenuShow = true"
+                    class="hover:text-gray-900"
+                >
+                    Categories
+                    <i
+                        :class="categoryMenuShow ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'"
+                    ></i>
+                </button>
+                <div
+                    x-cloak
+                    @click.outside="categoryMenuShow = false"
+                    x-show="categoryMenuShow"
+                    class="w-full fixed top-16 left-0 px-5 py-10 bg-white border-b border-gray-300"
+                >
+                    <div class="container grid grid-cols-7 h-90 mx-auto">
+                        <template x-for="category in categories">
+                            <div class="flex justify-center">
+                                <a
+                                    x-text="category"
+                                    href="#"
+                                    class="hover:text-gray-900"
+                                ></a>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="hover:text-gray-900">Forum</a>
+            <a href="#" class="hover:text-gray-900">About</a>
+        </nav>
+        <div class="inline-flex gap-x-4">
+            <label
+                for="default-search"
+                class="text-sm font-medium text-gray-900 sr-only"
+                >Search</label
+            >
+            <div class="relative">
+                <div
+                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                >
+                    <svg
+                        class="w-4 h-4 text-gray-500"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 20"
+                    >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                        />
+                    </svg>
+                </div>
+                <input
+                    type="search"
+                    id="default-search"
+                    class="block w-full py-1.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Search videogames, desktops,..."
+                    required
+                />
+            </div>
+
+            <button
+                class="inline-flex items-center bg-gray-100 border-0 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 rounded"
+            >
+                <a href="{% url 'topfragmarket:login' %}" class="py-1 px-3"
+                    >Login</a
+                >
+            </button>
+            <button
+                class="bg-[#258f41] hover:bg-[#1d7535] text-white inline-flex items-center border-0 py-1 px-3 focus:outline-none rounded text-base mt-4 md:mt-0 rounded"
+            >
+                Sign Up
+            </button>
+        </div>
+    </div>
+</header>
