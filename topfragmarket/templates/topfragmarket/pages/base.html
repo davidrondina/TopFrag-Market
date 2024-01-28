@@ -48,15 +48,43 @@
             src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.1/dist/cdn.min.js"
         ></script>
 
+        <!-- VenoBox -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/venobox/2.0.4/venobox.css"
+        integrity="sha512-FklhNXzHcdzrbf6AqtmZo3hOse+bIr/ofmEpzZmNWftOTsj8qWasNgJN6Y8d71grmcZZZa1bbHbXFbTTPCa3pA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet" type="text/css" /> -->
     </head>
     <body class="bg-gray-100">
         {% include "topfragmarket/components/header.html" %}
+
+        {% comment %} Flash messages {% endcomment %}
+        {% if messages %}
+            <ul x-data="{ show: true }" x-cloak x-show="show" x-init="setTimeout(() => { show = false }, 6000)" class="messages z-30 fixed top-28 left-1/2 text-center transform -translate-x-1/2 -translate-y-1/2">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }} px-8 py-4 rounded"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
         {% block content %} {% endblock %}
         {% include "topfragmarket/components/footer.html" %}
-
+        
         {% block scripts %}{% endblock scripts %}
+        
+        <!-- VenoBox -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/venobox/2.0.4/venobox.min.js"
+        integrity="sha512-KX9LF4BMXOG6qr9aGjFIPK1xysZAHWXpuZW6gnRi6oM+41qa8x4zaLPkckNxz5veoSWzmV5HZqPMMtknU+431g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script defer>
+            new VenoBox({
+                selector: '.venobox',
+                spinner: 'circle-fade',
+            });
+        </script>
+
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script>
             AOS.init();

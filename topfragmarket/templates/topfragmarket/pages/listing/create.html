@@ -1,0 +1,158 @@
+{% extends "topfragmarket/pages/base.html" %} 
+{% load static %} 
+{% block content %}
+<main class="flex flex-col h-screen">
+    {% comment %} You are now logged in! {% endcomment %}
+    <section class="">
+        <div class="container mx-auto px-5 py-10 flex flex-col">
+            <h1 class="mb-5 font-bold text-3xl">
+                Add a new listing
+            </h1>
+
+            <div>
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                        {{ error }}  
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            {% comment %} {{ form.as_p }} {% endcomment %}
+
+            <div class="w-full">
+                <form action="{% url 'topfragmarket:create_listing' %}" method="post" enctype="multipart/form-data" class="flex flex-col gap-y-2">
+                    {% csrf_token %}
+
+                    <label for="name">
+                        Name
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            {% for error in form.name.errors %}
+                                {{ error }}  
+                            {% endfor %}
+                        {% endif %}
+                    </label>
+
+                    <label for="description">
+                        Description
+                        {{ form.description }}
+                        {% comment %} {{ form.description.errors }} {% endcomment %}
+                        {% if form.description.errors %}
+                            {% for error in form.description.errors %}
+                                {{ error }}  
+                            {% endfor %}
+                        {% endif %}
+                    </label>
+
+                    <div class="w-full flex flex-wrap">
+                        <label for="price" class="grow-[1]">
+                            Price
+                            {{ form.price }}
+                            {% comment %} {{ form.price.errors }} {% endcomment %}
+                            {% if form.price.errors %}
+                                {% for error in form.price.errors %}
+                                    {{ error }}  
+                                {% endfor %}
+                            {% endif %}
+                        </label>
+    
+                        <label for="condition" class="grow-[1]">
+                            Condition
+                            {{ form.condition }}
+                            {% if form.condition.errors %}
+                                {% for error in form.condition.errors %}
+                                    {{ error }}  
+                                {% endfor %}
+                            {% endif %}
+                        </label>
+
+                        <label for="category" class="grow-[1]">
+                            Category
+                            {{ form.category }}
+                            {% if form.category.errors %}
+                                {% for error in form.category.errors %}
+                                    {{ error }}  
+                                {% endfor %}
+                            {% endif %}
+                        </label>
+
+                        <label for="deal_option" class="grow-[1]">
+                            Deal Option
+                            {{ form.deal_option }}
+                            {% if form.deal_option.errors %}
+                                {% for error in form.deal_option.errors %}
+                                    {{ error }}  
+                                {% endfor %}
+                            {% endif %}
+                        </label>
+
+                        <label for="location" class="grow-[1]">
+                            Location
+                            {{ form.location }}
+                            {% if form.location.errors %}
+                                {% for error in form.location.errors %}
+                                    {{ error }}  
+                                {% endfor %}
+                            {% endif %}
+                        </label>
+                    </div>
+
+                    <div class="flex gap-x-3">
+                        <div>Images</div>
+                        <div x-data="fileInput()" class="grow">
+                            <div id="attachments" class="space-y-2">
+                                <div>
+                                    <input type="file" name="images[]" id="thumbnail" required>
+                                </div>
+                            </div>
+
+                            <button @click="addFileInput()" type="button" class="mt-4 block bg-[#258f41] hover:bg-[#1d7535] text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded">
+                                Add another image
+                            </button>
+                        </div>
+                    </div> 
+
+                    <button type="submit" class="mt-6 bg-[#258f41] hover:bg-[#1d7535] w-full text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('fileInput', () => ({
+            fileInputCount: 1,
+    
+            addFileInput() {
+                if (this.fileInputCount == 3) {
+                    return null;
+                }
+    
+                let attachments = document.getElementById('attachments');
+    
+                let input = document.createElement('input');
+                input.type = 'file';
+                input.setAttribute('name', 'images[]');
+
+                let div = document.createElement('div');
+                
+                div.appendChild(input);
+
+                attachments.appendChild(div);
+    
+                this.fileInputCount++;
+
+                input.click();
+            }
+        }));
+    });
+</script>
+{% endblock %}

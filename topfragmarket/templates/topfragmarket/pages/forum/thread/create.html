@@ -1,0 +1,34 @@
+{% extends "topfragmarket/pages/base.html" %} 
+{% load static %} 
+{% block content %}
+<main class="flex flex-col h-screen">
+    {% comment %} You are now logged in! {% endcomment %}
+    <section class="">
+        <div class="container mx-auto px-5 py-10 flex flex-col">
+            <h1 class="mb-5 font-bold text-3xl">
+                Submit a thread
+            </h1>
+
+            <div class="w-full">
+                {% comment %} GANITO GUMAWA NG FORM SA HTML {% endcomment %}
+                {% comment %} SA action="" ng <form>, DIYAN MO ILALAGAY YUNG NAME NG URL NA MAGHAHANDLE NG DATA NA GALING SA FORM ONCE NA NAGSUBMIT {% endcomment %}
+                {% comment %} HUWAG MONG GAGAYAHIN YUNG NAME NG URL, BABAGUHIN MO YAN SA KUNG ANONG URL ANG GAGAMITIN MO {% endcomment %}
+                <form action="{% url 'topfragmarket:create_thread' %}" method="post" enctype="multipart/form-data" class="flex flex-col gap-y-2">
+                    {% comment %} WAG KAKALIMUTANG ILAGAY ITO: {% endcomment %}
+                    {% csrf_token %}
+                    
+                    <div>
+                        {% comment %} NAKIKITA MO ITONG NASA BABA? {% endcomment %}
+                        {% comment %} ITO YUNG VARIABLE NA FORM NA NI-RETURN NG VIEW FUNCTION MO NA NAGRERETURN DIN NG HTML PAGE {% endcomment %}
+                        {% comment %} ITO ANG MAGDIDISPLAY NG LAHAT NG INPUT FIELD NA MERON SA FORM MO {% endcomment %}
+                        {{ form.as_p }}
+                    </div>
+
+                    {% comment %} MAGLAGAY KA NG SUBMIT BUTTON PARA MA-SUBMIT YUNG DATA SA URL NA NAKALAGAY SA <form action=""> {% endcomment %}
+                    <button type="submit" class="mt-6 bg-[#258f41] hover:bg-[#1d7535] w-full text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

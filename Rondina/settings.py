@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants as messages
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -101,6 +102,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# MESSAGE TAGS
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'bg-green-200 border border-green-500',
+        messages.WARNING: 'bg-yellow-200 border border-yellow-500',
+        messages.ERROR: 'bg-red-200 border border-red-500',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

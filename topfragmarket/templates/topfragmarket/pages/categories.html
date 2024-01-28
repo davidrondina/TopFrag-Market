@@ -1,5 +1,6 @@
 {% extends "topfragmarket/pages/base.html" %}
 {% load static %}
+{% load urlparams %}
 {% block content %}
 <main
     x-data="{ categories: ['Desktops', 'Laptops & Notebooks', 'Phones & Tablets', 'Consoles', 'Videogames', 'Audio', 'Accessories'] }"
@@ -18,7 +19,7 @@
             </h1>
             <div class="flex flex-wrap justify-center gap-5">
                 <div class="group w-[49%]">
-                    <a href="#" class="flex">
+                    <a href="{% url 'topfragmarket:listings' %}{% urlparams category='desktops' %}" class="flex">
                         <div
                             style="background-image: url('/static/images/items/desktop.jpg');"
                             class="w-full h-[180px] bg-white bg-cover bg-center rounded shadow overflow-hidden"
@@ -56,7 +57,7 @@
                 </div>
 
                 <div class="group w-[49%]">
-                    <a href="#" class="flex">
+                    <a href="{% url 'topfragmarket:listings' %}{% urlparams category='laptops & notebooks' %}" class="flex">
                         <div
                             style="
                                 background-image: url('/static/images/items/laptop.jpg');
@@ -96,7 +97,7 @@
                 </div>
 
                 <div class="group w-[49%]">
-                    <a href="#" class="flex">
+                    <a href="{% url 'topfragmarket:listings' %}{% urlparams category='phones & tablets' %}" class="flex">
                         <div
                             style="
                                 background-image: url('/static/images/items/smartphone.jpg');
@@ -136,7 +137,7 @@
                 </div>
 
                 <div class="group w-[49%]">
-                    <a href="#" class="flex">
+                    <a href="{% url 'topfragmarket:listings' %}{% urlparams category='consoles' %}" class="flex">
                         <div
                             style="
                                 background-image: url('/static/images/items/console.jpg');
@@ -176,7 +177,7 @@
                 </div>
 
                 <div class="group w-[49%]">
-                    <a href="#" class="flex">
+                    <a href="{% url 'topfragmarket:listings' %}{% urlparams category='videogames' %}" class="flex">
                         <div
                             style="
                                 background-image: url('/static/images/items/videogame.jpg');
@@ -216,7 +217,7 @@
                 </div>
 
                 <div class="group w-[49%]">
-                    <a href="#" class="flex">
+                    <a href="{% url 'topfragmarket:listings' %}{% urlparams category='audio' %}}" class="flex">
                         <div
                             style="
                                 background-image: url('/static/images/items/headphones.jpg');
@@ -257,7 +258,7 @@
                 </div>
 
                 <div class="group w-[49%]">
-                    <a href="#" class="flex">
+                    <a href="{% url 'topfragmarket:listings' %}{% urlparams category='accessories' %}" class="flex">
                         <div
                             style="
                                 background-image: url('/static/images/items/accessory.jpg');

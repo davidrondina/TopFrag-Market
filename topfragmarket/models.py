@@ -13,7 +13,7 @@ class Profile(models.Model):
     middle_name = models.CharField(max_length=50, blank=True)
     surname = models.CharField(max_length=50, null=True) 
     contact_no = models.CharField(max_length=11, blank=True)
-    address = models.CharField(max_length=60, null=True)
+    # address = models.CharField(max_length=60, null=True)
     birthdate = models.DateField(null=True)
     sex = models.CharField(choices=SEX_CHOICES, max_length=1)
     profile_photo = models.ImageField(upload_to='profile_media/', blank=True) # Image will be uploaded to MEDIA_ROOT/thread_media
@@ -24,9 +24,13 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.surname}'
     
+    def user_has_profile(user_id):
+        print(Profile.objects.filter(user_id=user_id).count() > 0)
+        return Profile.objects.filter(user_id=user_id).count() > 0
+    
 class Condition(models.Model):
     name = models.CharField(max_length=20, null=True)
-    description = models.CharField(max_length=50, null=True)
+    description = models.CharField(max_length=80, null=True)
     
     def __str__(self):
         return self.name
@@ -48,13 +52,21 @@ class Listing(models.Model):
         ('accessories', 'Accessories'),
     )
     
-    name = models.CharField(max_length=30, null=True)
+    LOCATION_CHOICES = (
+        ('cavite', 'Cavite'),
+        ('laspiñas', 'Las Piñas'),
+        ('makati', 'Makati'),
+        ('Pasig', 'Pasig'),
+    )
+    
+    name = models.CharField(max_length=40, null=True)
     description = models.TextField(max_length=255, null=True)
     price = models.PositiveIntegerField(validators=[MaxValueValidator(200000)], null=True)
     condition = models.ForeignKey(Condition, on_delete=models.CASCADE)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=50, null=True)
     deal_option = models.CharField(choices=DEAL_CHOICES, max_length=30, null=True)
-    location = models.CharField(max_length=50, null=True)
+    # location = models.CharField(max_length=50, null=True)
+    location = models.CharField(choices=LOCATION_CHOICES, max_length=80, null=True)
     is_sold = models.BooleanField(default=False)
     seller = models.ForeignKey(User, db_column='seller_id', related_name='seller', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -62,6 +74,9 @@ class Listing(models.Model):
     
     def __str__(self):
         return self.name
+    
+    def get_listing_image(self):
+        return ListingImage.objects.filter(listing_id=self.id).first()
 
 class ListingLike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -88,6 +103,8 @@ class Thread(models.Model):
         ('general', 'General'),
         ('discussion', 'Discussion'),
         ('Advice', 'Advice'),
+        ('gaming', 'Gaming'),
+        ('tech', 'Tech'),
     )
     
     title = models.CharField(max_length=50, null=True)

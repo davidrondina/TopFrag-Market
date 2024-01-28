@@ -1,0 +1,134 @@
+{% extends "topfragmarket/pages/base.html" %} 
+{% load static %} 
+{% block content %}
+<main class="flex flex-col">
+    {% comment %} You are now logged in! {% endcomment %}
+    <section class="">
+        <div class="container mx-auto px-5 py-10 flex flex-col gap-y-10">
+            <div class="mb-8">
+                <a href="javascript:history.go(-1)" class="px-3 py-1 inline-flex items-center bg-white border-0 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 rounded shadow"><i class="ri-arrow-left-line"></i> Back</a>
+            </div>
+            
+            <div class="w-full flex justify-between items-center">
+                <div>
+                    <h1 class="font-bold text-3xl">
+                        {{ thread.title }}
+                    </h1>
+    
+                    <p>{{ thread.user.profile.first_name }} {{ thread.user.profile.surname }} <span class="text-gray-500">({{ thread.created_at }})</span></p>
+                </div>
+
+                {% if thread.user_id == user.id %}
+                    <div x-data="{ deleteBtn: false }" class="flex items-center gap-x-3">
+                        <button type="button" class="bg-blue-700 hover:bg-blue-800 text-center text-white font-semibold border-0 focus:outline-none rounded shadow"><a href="{% url 'topfragmarket:update_thread' thread.id %}" class="block w-full py-2 px-6">Edit</a></button>
+                        
+                        <button @click="deleteBtn = !deleteBtn" type="submit" class="bg-red-700 hover:bg-red-800 text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded shadow">Delete</button>
+
+                        <div x-cloak x-show="deleteBtn" class="fixed z-50 inset-0 overflow-y-auto">
+                            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        
+                                <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                                    <div class="absolute inset-0 bg-black/40 opacity-75">
+                                    </div>
+                                </div>
+                        
+                                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                        
+                                <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6"
+                                    role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                                    <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
+                                        <button @click="deleteBtn = false" type="button" data-behavior="cancel"
+                                            class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent">
+                                            <span class="sr-only">Close</span>
+                                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="sm:flex sm:items-start">
+                                        <div
+                                            class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-200 sm:mx-0 sm:h-10 sm:w-10">
+                                            <svg class="h-6 w-6 text-danger" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                            </svg>
+                                        </div>
+                                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                                                Delete Thread?
+                                            </h3>
+                                            <div class="mt-2">
+                                                <p class="text-sm text-gray-500">
+                                                    This action cannot be undone
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+                                        <form action="{% url 'topfragmarket:delete_thread' thread.id %}" method="POST">
+                                            {% csrf_token %}
+                        
+                                            <button type="submit" data-behavior="commit"
+                                                class="font-bold w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-700 hover:bg-red-800 text-base text-white focus:outline-none transition ease-in-out duration-150 sm:ml-3 sm:w-auto">
+                                                Confirm
+                                            </button>
+                                        </form>
+                        
+                                        <button @click="deleteBtn = false" type="button" data-behavior="cancel"
+                                            class="font-bold mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white hover:bg-gray-200 transition ease-in-out duration-150 text-base focus:outline-none border border-gray-400 sm:mt-0 sm:w-auto">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div>
+                {% if thread.image %}
+                    <div class="mb-6">
+                        <img src="{{ thread.image.url }}" alt="Thread image" class="max-h-[300px] object-cover">
+                    </div>
+                {% endif %}
+
+                <p>{{ thread.content }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="">
+        <div class="container mx-auto px-5 py-10 flex flex-col">
+            <form action="{% url 'topfragmarket:thread_detail' thread.id %}" method="POST" class="mb-9">
+                {% csrf_token %}
+
+                <label for="content" class="grow-[1]">
+                    Comment
+                    {{ form.content }}
+                    {{ form.content.errors }}
+                </label>
+
+                <button type="submit" class="mt-6 bg-[#258f41] hover:bg-[#1d7535] w-full text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded">Send</button>
+            </form>
+
+            <div>
+                {% for comment in comments %}
+                    <article class="px-5 py-4 border-b border-gray-400 last:border-b-0">
+                        <div>
+                            <h3 class="font-semibold">
+                                <p>{{ comment.user.profile.first_name }} {{ comment.user.profile.surname }} <span class="text-gray-500 font-normal">@{{ comment.user}} ({{ comment.created_at }})</span>
+                                </p>
+                            </h3>
+                            <p>{{ comment.content }}</p> 
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "topfragmarket/pages/base.html" %} 
+{% load static %} 
+{% load urlparams %}
+{% block content %}
+<main class="flex flex-col min-h-screen">
+    {% comment %} You are now logged in! {% endcomment %}
+    <section class="">
+        <div class="container mx-auto px-5 py-10 flex flex-col">
+            <h1 class="mb-5 font-bold text-3xl">
+                Chats
+            </h1>
+            <div class="mb-4 flex gap-x-3">
+                <a href="{% url 'topfragmarket:chats' %}{% urlparams chat='seller' %}" 
+                class="px-3 py-1 rounded shadow 
+                    {% if request.get_full_path == '/chats/?chat=seller' %} {{ 'bg-[#258f41] hover:bg-[#1d7535] text-white' }}
+                    {% else %}
+                    {{ 'bg-white hover:bg-gray-200' }}
+                    {% endif %}"
+                >
+                    My chats</a>
+                <a href="{% url 'topfragmarket:chats' %}{% urlparams chat='buyer' %}" 
+                class="px-3 py-1 rounded shadow 
+                    {% if request.get_full_path == '/chats/?chat=buyer' %} {{ 'bg-[#258f41] hover:bg-[#1d7535] text-white' }}
+                    {% else %}
+                    {{ 'bg-white hover:bg-gray-200 border' }}
+                    {% endif %}"
+                >
+                    From buyers</a>
+            </div>
+
+            <div class="mb-8">
+                {% comment %} <h2 class="font-bold">Chats</h2> {% endcomment %}
+                {% if not chats %}
+                <div class="py-6 flex justify-center items-center">
+                    <h2 class="text-gray-500 text-center text-lg">No chats found.</h2>
+                </div>
+                {% else %}
+                <ul class="space-y-3">
+                    {% for chat in chats %}
+                        <li>
+                            <a href="{% url 'topfragmarket:chat_detail' chat.id %}">
+                                <div class="bg-white hover:bg-gray-200 px-5 py-4 flex items-center gap-x-3 rounded shadow">
+                                    <h3 class="font-semibold text-lg">{{ chat.listing.name }}</h3>
+                                    <p>{{ chat.creator.profile.first_name }} {{ chat.creator.profile.surname }} (@{{ chat.creator }})</p>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            
+            {% comment %} <div>
+                <h3 class="font-bold">Seller</h3>
+                <ul>
+                    {% for chat in seller_chats %}
+                        <li>
+                            <a href="{% url 'topfragmarket:chat_detail' chat.id %}">
+                                <div class="flex gap-x-3">
+                                    <h3 class="font-semibold text-lg">{{ chat.listing.name }}</h3>
+                                    <p>{{ chat.creator.profile.first_name }} {{ chat.creator.profile.surname }}</p>
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div> {% endcomment %}
+        </div>
+    </section>
+</main>
+{% endblock %}

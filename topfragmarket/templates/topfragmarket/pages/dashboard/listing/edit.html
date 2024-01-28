@@ -1,0 +1,98 @@
+{% extends "topfragmarket/pages/base.html" %} 
+{% load static %} 
+{% block content %}
+<main class="flex flex-col h-screen">
+    {% comment %} You are now logged in! {% endcomment %}
+    <section class="">
+        <div class="container mx-auto px-5 py-10 flex flex-col">
+            <h1 class="mb-5 font-bold text-3xl">
+                Edit listing
+            </h1>
+
+            <div>
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                        {{ error }}  
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            {% comment %} {{ form.as_p }} {% endcomment %}
+
+            <div class="w-full">
+                <form action="{% url 'topfragmarket:update_listing' listing.id %}" method="post" enctype="multipart/form-data" class="flex flex-col gap-y-2">
+                    {% csrf_token %}
+
+                    <label for="name">
+                        Name
+                        {{ form.name }}
+                        {{ form.name.errors }}
+                    </label>
+
+                    <label for="description">
+                        Description
+                        {{ form.description }}
+                        {{ form.description.errors }}
+                    </label>
+
+                    <div class="w-full flex flex-wrap">
+                        <label for="price" class="grow-[1]">
+                            Price
+                            {{ form.price }}
+                            {{ form.price.errors }}
+                        </label>
+    
+                        <label for="condition" class="grow-[1]">
+                            Condition
+                            {{ form.condition }}
+                            {{ form.condition.errors }}
+                        </label>
+
+                        <label for="category" class="grow-[1]">
+                            Category
+                            {{ form.category }}
+                            {{ form.category.errors }}
+                        </label>
+
+                        <label for="deal_option" class="grow-[1]">
+                            Deal Option
+                            {{ form.deal_option }}
+                            {{ form.deal_option.errors }}
+                        </label>
+
+                        <label for="location" class="grow-[1]">
+                            Location
+                            {{ form.location }}
+                            {{ form.location.errors }}
+                        </label>
+                    </div>
+
+                    {% comment %} <div class="flex gap-x-3">
+                        <div>Images</div>
+                        <div x-data="fileInput()" class="grow">
+                            <div id="attachments" class="space-y-2">
+                                <div>
+                                    <input type="file" name="images[]" id="thumbnail" required>
+                                </div>
+                            </div>
+
+                            <button @click="addFileInput()" type="button" class="mt-4 block bg-[#258f41] hover:bg-[#1d7535] text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded">
+                                Add another image
+                            </button>
+                        </div>
+                    </div>  {% endcomment %}
+
+                    <button type="submit" class="mt-6 bg-[#258f41] hover:bg-[#1d7535] w-full text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

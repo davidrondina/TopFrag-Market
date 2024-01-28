@@ -1,0 +1,26 @@
+{% extends "topfragmarket/pages/base.html" %} 
+{% load static %} 
+{% block content %}
+<main class="flex flex-col h-screen">
+    {% comment %} You are now logged in! {% endcomment %}
+    <section class="">
+        <div class="container mx-auto px-5 py-10 flex flex-col">
+            <h1 class="mb-5 font-bold text-3xl">
+                Edit thread
+            </h1>
+
+            <div class="w-full">
+                <form action="{% url 'topfragmarket:update_thread' thread.id %}" method="post" enctype="multipart/form-data" class="flex flex-col gap-y-2">
+                    {% csrf_token %}
+                    
+                    <div>
+                        {{ form.as_p }}
+                    </div>
+
+                    <button type="submit" class="mt-6 bg-[#258f41] hover:bg-[#1d7535] w-full text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

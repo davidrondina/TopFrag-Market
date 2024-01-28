@@ -1,4 +1,5 @@
 {% load static %}
+{% load urlparams %}
 <header
     class="z-20 sticky top-0 left-0 text-gray-600 bg-white body-font border-b border-gray-300"
 >
@@ -18,7 +19,7 @@
             class="md:ml-auto md:mr-auto flex flex-wrap gap-x-5 items-center text-base justify-center"
         >
             <div
-                x-data="{ categories: ['Desktops', 'Laptops & Notebooks', 'Phones & Tablets', 'Consoles', 'Videogames', 'Audio', 'Accessories'],categoryMenuShow: false }"
+                x-data="{ categories: [['Desktops', 'desktops'], ['Laptops & Notebooks', 'laptops & notebooks'], ['Phones & Tablets', 'phones & tablets'], ['Consoles', 'consoles'], ['Videogames', 'videogames'], ['Audio', 'audio'], ['Accessories', 'accessories']], categoryMenuShow: false }"
                 class="relative"
             >
                 <button
@@ -37,68 +38,173 @@
                     class="w-full fixed top-16 left-0 px-5 py-10 bg-white border-b border-gray-300"
                 >
                     <div class="container grid grid-cols-7 h-90 mx-auto">
-                        <template x-for="category in categories">
+                        <div class="flex justify-center">
+                            <a
+                                href="{% url 'topfragmarket:listings' %}{% urlparams category='desktops' %}"
+                                class="hover:text-gray-900"
+                            >Desktops</a>
+                        </div>
+                        <div class="flex justify-center">
+                            <a
+                                href="{% url 'topfragmarket:listings' %}{% urlparams category='laptops & notebooks' %}"
+                                class="hover:text-gray-900"
+                            >Laptops & Notebooks</a>
+                        </div>
+                        <div class="flex justify-center">
+                            <a
+                                href="{% url 'topfragmarket:listings' %}{% urlparams category='phones & tablets' %}"
+                                class="hover:text-gray-900"
+                            >Phones & Tablets</a>
+                        </div>
+                        <div class="flex justify-center">
+                            <a
+                                href="{% url 'topfragmarket:listings' %}{% urlparams category='consoles' %}"
+                                class="hover:text-gray-900"
+                            >Consoles</a>
+                        </div>
+                        <div class="flex justify-center">
+                            <a
+                                href="{% url 'topfragmarket:listings' %}{% urlparams category='videogames' %}"
+                                class="hover:text-gray-900"
+                            >Videogames</a>
+                        </div>
+                        <div class="flex justify-center">
+                            <a
+                                href="{% url 'topfragmarket:listings' %}{% urlparams category='audio' %}"
+                                class="hover:text-gray-900"
+                            >Audio</a>
+                        </div>
+                        <div class="flex justify-center">
+                            <a
+                                href="{% url 'topfragmarket:listings' %}{% urlparams category='accessories' %}"
+                                class="hover:text-gray-900"
+                            >Accessories</a>
+                        </div>
+                        {% comment %} <template x-for="category in categories">
                             <div class="flex justify-center">
                                 <a
-                                    x-text="category"
-                                    href="#"
+                                    x-text="category[0]"
+                                    href="{% url 'topfragmarket:listings' %}{% urlparams category='desktops' %}"
                                     class="hover:text-gray-900"
                                 ></a>
                             </div>
-                        </template>
+                        </template> {% endcomment %}
                     </div>
                 </div>
             </div>
-            <a href="#" class="hover:text-gray-900">Forum</a>
-            <a href="#" class="hover:text-gray-900">About</a>
+            <a href="{% url 'topfragmarket:forum' %}" class="hover:text-gray-900">Forum</a>
+            <a href="{% url 'topfragmarket:about' %}" class="hover:text-gray-900">About</a>
         </nav>
         <div class="inline-flex gap-x-4">
-            <label
+            <form action="{% url 'topfragmarket:listings' %}" method="get" class="flex gap-x-2 pr-3 border-r border-gray-400">
+                <label
                 for="default-search"
                 class="text-sm font-medium text-gray-900 sr-only"
-                >Search</label
-            >
-            <div class="relative">
-                <div
-                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
-                >
-                    <svg
-                        class="w-4 h-4 text-gray-500"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 20"
+                >Search</label>
+                <div class="relative">
+                    <div
+                        class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
                     >
-                        <path
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                        />
-                    </svg>
+                        <svg
+                            class="w-4 h-4 text-gray-500"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                        >
+                            <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                            />
+                        </svg>
+                    </div>
+                    <input
+                        name="search"
+                        type="search"
+                        id="default-search"
+                        class="block w-full py-1.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Search videogames, desktops,..."
+                        required
+                    />
                 </div>
-                <input
-                    type="search"
-                    id="default-search"
-                    class="block w-full py-1.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Search videogames, desktops,..."
-                    required
-                />
-            </div>
 
-            <button
-                class="inline-flex items-center bg-gray-100 border-0 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 rounded"
-            >
-                <a href="{% url 'topfragmarket:login' %}" class="py-1 px-3"
-                    >Login</a
-                >
-            </button>
-            <button
-                class="bg-[#258f41] hover:bg-[#1d7535] text-white inline-flex items-center border-0 py-1 px-3 focus:outline-none rounded text-base mt-4 md:mt-0 rounded"
-            >
-                Sign Up
-            </button>
+                <button type="submit" class="bg-[#258f41] hover:bg-[#1d7535] py-1 px-3 text-white inline-flex items-center border-0 focus:outline-none rounded text-base mt-4 md:mt-0 rounded">Go</button>
+            </form>
+
+            {% comment %} <div x-data="{ isOpen: false }" @click.outside="isOpen = false" class="relative">
+                <button @click="isOpen = !isOpen"
+                    class="px-3 py-1 rounded hover:bg-gray-300 border border-gray-300">
+                    <i class="ri-more-2-line"></i> User
+                </button>
+
+                <div x-cloak x-show="isOpen"
+                    class="z-50 absolute top-10 right-3 w-32 py-1 bg-white sm:text-sm border border-gray-300 rounded-md shadow-md">
+                    <button type="button"
+                        class="w-full hover:bg-green-200 font-semibold text-left">
+                        <a href="#"
+                            class="block w-full px-3 py-1">
+                            <i class="ri-edit-box-line mr-2 font-normal"></i>Edit
+                        </a>
+                    </button>
+
+                    <button type="button"
+                        class="w-full px-3 py-1 hover:bg-green-200 text-danger text-left font-semibold">
+                        <i class="ri-delete-bin-line mr-2 font-normal"></i>Logout
+                    </button>
+                </div>
+            </div> {% endcomment %}
+
+            {% comment %} <div x-data="{ userBtnClicked: false }">
+                <button @click="userBtnClicked = !userBtnClicked"
+                    class="relative px-3 py-1 flex items-center font-semibold rounded overflow-hidden hover:bg-green-200 border border-gray-300">
+                    <div class="w-8 h-8 mr-3 rounded-full overflow-hidden">
+                        <img src=""
+                            alt="a">
+                            <!-- <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400"> -->
+                    </div>
+                    
+                    <div>
+                        User
+                        <i x-cloak x-show="!userBtnClicked" class="ri-arrow-down-s-line font-normal"></i>
+                        <i x-cloak x-show="userBtnClicked" class="ri-arrow-up-s-line font-normal"></i>
+                    </div>
+                </button>
+
+                <button x-cloak x-show="userBtnClicked" @click="userBtnClicked = false"
+                    class="h-full w-full fixed inset-0 cursor-default"></button>
+                <div x-cloak x-show="userBtnClicked" x-transition.duration.500ms
+                    class="absolute top-0 right-0 w-32 bg-white rounded-lg shadow-sm py-2 mt-16 z-10 border border-gray-300">
+                    <a href="#" class="block px-3 py-1 hover:bg-green-200">
+                        <i class="ri-account-circle-line mr-3"></i>
+                        Profile
+                    </a>
+                </div>
+            </div> {% endcomment %}
+
+            {% if user.is_authenticated %}
+                <button class="inline-flex items-center bg-gray-100 border-0 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 rounded">
+                    <a href="{% url 'topfragmarket:dashboard' %}" class="py-1 px-3">Dashboard</a>
+                </button>
+                <button class="inline-flex items-center bg-gray-100 border-0 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 rounded">
+                    <a href="{% url 'topfragmarket:chats' %}{% urlparams chat='seller' %}" class="py-1 px-3">Chats</a>
+                </button>
+                <button class="bg-[#258f41] hover:bg-[#1d7535] text-white inline-flex items-center border-0  focus:outline-none rounded text-base mt-4 md:mt-0 rounded">
+                    <a href="{% url 'topfragmarket:create_listing' %}" class="py-1 px-3">Sell</a>
+                </button>
+                <button class="inline-flex items-center bg-gray-100 border-0 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 rounded">
+                    <a href="{% url 'topfragmarket:logout' %}" class="py-1 px-3">Logout</a>
+                </button>
+            {% else %}
+                <button class="inline-flex items-center bg-gray-100 border-0 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 rounded">
+                    <a href="{% url 'topfragmarket:login' %}" class="py-1 px-3">Login</a>
+                </button>
+                <button class="bg-[#258f41] hover:bg-[#1d7535] text-white inline-flex items-center border-0 focus:outline-none rounded text-base mt-4 md:mt-0 rounded">
+                    <a href="{% url 'topfragmarket:register' %}" class="py-1 px-3">Register</a>
+                </button>
+            {% endif %}
         </div>
     </div>
 </header>

@@ -1,0 +1,89 @@
+{% extends "topfragmarket/pages/base.html" %} 
+{% load static %} 
+{% block content %}
+<main class="flex flex-col min-h-screen">
+    {% comment %} You are now logged in! {% endcomment %}
+    <section class="">
+        <div class="container mx-auto px-5 py-10 flex justify-between">
+            <h1 class="grow-[1]">
+                <p class="text-2xl font-bold">{{ profile.first_name }} {{ profile.surname }}</p>
+                <p class="text-gray-600">@{{ profile.user }}</p>
+            </h1>
+
+            <div class="grow-[1] flex flex-wrap gap-2">
+                <div class="w-[49%] bg-white rounded-md px-6 py-2">
+                    <h2>Listings owned</h2>
+                    <p class="text-xl font-bold">{{ listings_count }}</p>
+                </div>
+                <div class="w-[49%] bg-white rounded-md px-6 py-2">
+                    <h2>Items sold</h2>
+                    <p class="text-xl font-bold">{{ listings_sold }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="">
+        <div class="container mx-auto px-5 py-10 flex flex-col">
+            <div class="w-full mb-3 flex justify-between">
+                <h2 class="font-bold text-xl">My Listings</h2>
+
+                <div>
+                    <button class="bg-[#258f41] hover:bg-[#1d7535] text-white inline-flex items-center border-0  focus:outline-none rounded text-base mt-4 md:mt-0 rounded">
+                        <a href="{% url 'topfragmarket:create_listing' %}" class="py-1 px-3">+ New Listing</a>
+                    </button>
+                </div>
+            </div>
+
+            {% if not listings %}
+            <div class="py-6 flex justify-center items-center">
+                <h2 class="text-gray-500 text-center text-lg">You do not have any listings yet.</h2>
+            </div>
+            {% else %}
+            <div x-data="allListing" class="flex flex-wrap gap-5">
+                {% for listing in listings %}
+                <div class="bg-white rounded shadow overflow-hidden">
+                    {% comment %} <div class="group px-3 bg-white rounded-t shadow">
+                        <a href="#" class="flex items-center gap-x-3 py-2.5 ">
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img src="{% static 'images/blank-profile-picture.png' %}" alt="" class="object-cover object-center overflow-hidden"/>
+                            </div>
+                            <p class="group-hover:underline">@{{ listing.seller }}</p>
+                        </a>
+                    </div> {% endcomment %}
+                    <a href="{% url 'topfragmarket:listing_detail' listing.id %}" class="group block">
+                        <div class="w-[250px] h-[320px] bg-white overflow-hidden">
+                            <div
+                                class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
+                            >
+                                <img
+                                    class="w-full object-cover object-center"
+                                    alt="hero"
+                                    src="{{ listing.get_listing_image.image.url }}"
+                                />
+                            </div>
+                            <div class="w-full h-1/2 py-2.5 px-3">
+                                <p
+                                    class="group-hover:underline font-semibold truncate"
+                                >
+                                    {{ listing.name }}
+                                </p>
+                                <h3
+                                    class="text-[#258f41] font-semibold text-2xl"
+                                >
+                                    ₱ {{ listing.price }}
+                                </h3>
+                                <p class="text-sm font-light">
+                                    {{ listing.condition.name }}
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,202 @@
+{% extends "topfragmarket/pages/base.html" %} 
+{% load static %} 
+{% block content %}
+<main class="flex flex-col">
+    {% comment %} You are now logged in! {% endcomment %}
+    <section class="mb-10">
+        <div class="container mx-auto px-5 py-10 flex flex-col">
+            <div class="mb-8">
+                <a href="javascript:history.go(-1)" class="px-3 py-1 inline-flex items-center bg-white border-0 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 rounded shadow"><i class="ri-arrow-left-line"></i> Back</a>
+            </div>
+
+            <div class="w-full mb-6 grid grid-cols-2">
+                <div class="px-6">
+                    <a href="{{ images.0.image.url }}" class="venobox">
+                        <img src="{{ images.0.image.url }}" alt="images.0" class="w-full h-[400px] max-h-[300px] object-cover overflow-hidden">
+                    </a>
+                </div>
+                <div>
+                    <h1 class="font-bold text-3xl mb-4">{{ listing.name }}</h1>
+
+                    <p class="font-bold text-3xl">
+                        <span class="text-lg">₱ </span>
+                        <span class="text-[#258f41]">{{ listing.price }}</span>
+                    </p>
+
+                    <div class="my-6 grid grid-cols-2 gap-4">
+                        <div>{{ listing.condition.name }}</div>
+                        <div>{{ listing.location.capitalize }}</div>
+                        <div>{{ listing.deal_option.capitalize }}</div>
+                    </div>
+
+                    <div x-data="chatMessageForm()">
+                        <button @click="toggle('messageBtn')" x-cloak x-show="cancelMessageBtn" type="button" class="mt-6 bg-[#258f41] hover:bg-[#1d7535] w-full text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded">
+                            Contact Seller
+                        </button>
+    
+                        <form x-cloak x-show="messageBtn" action="{% url 'topfragmarket:listing_detail' listing.id %}" method="post">
+                            {% csrf_token %}
+    
+                            <div class="w-full">
+                                {{ form.as_p }}
+                            
+                                <div class="mt-2 w-full flex gap-x-3">
+                                    <button type="submit" class="grow-[1] bg-[#258f41] hover:bg-[#1d7535] text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded shadow">
+                                        Send
+                                    </button>
+            
+                                    <button @click="toggle('cancelMessageBtn')" type="button" class="grow-[1] bg-white hover:bg-gray-200 text-center font-semibold border border-gray-400 py-2 px-6 focus:outline-none rounded shadow">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            {% if images_count > 1 %}
+            <div class="mb-6 space-y-2">
+                <h2 class="font-bold text-lg">Additional images</h2>
+                <div class="flex gap-x-3">
+                    {% if images.1 %}
+                    <div>
+                        <a href="{{ images.1.image.url }}" class="venobox">
+                            <img src="{{ images.1.image.url }}" alt="images.1" class="h-[300px] max-h-[180px] object-cover overflow-hidden">
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    {% if images.2 %}
+                    <div>
+                        <a href="{{ images.2.image.url }}" class="venobox">
+                            <img src="{{ images.2.image.url }}" alt="images.2" class="h-[300px] max-h-[180px] object-cover overflow-hidden">
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="space-y-2">
+                <h2 class="font-bold text-lg">Description</h2>
+                <p>{{ listing.description }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class"mb-10">
+        <div class="container mx-auto px-5 pb-16 flex flex-col">
+            <h2 class="font-bold text-2xl mb-3">Seller</h2>
+            <div class="flex items-center gap-x-4">
+                <div class="w-28 h-28 overflow-hidden rounded-full">
+                    <img src="{% static 'images/blank-profile-picture.png' %}" alt="User profile" class="object-cover object-center">
+                </div>
+                <div>
+                    <div class="mb-3">
+                        <h3 class="group-hover:underline font-semibold text-lg">{{ listing.seller.profile.first_name }} {{ listing.seller.profile.surname }}</h3>
+                        <p class="text-gray-500">@{{ listing.seller }}</p>
+                        <p class="text-gray-500">Joined {{ listing.seller.date_joined }}</p>
+                    </div>
+
+                    <a href="{% url 'topfragmarket:profile' listing.seller.id %}" class="hover:underline font-semibold text-blue-500">View Profile ></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container mx-auto px-5 pb-16 flex flex-col">
+            <h2 class="font-bold text-2xl mb-3">Other listings</h2>
+            <div class="flex justify-center flex-wrap gap-5">
+                {% for listing in listings %}
+                    <div class="bg-white rounded shadow overflow-hidden">
+                        <div class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow">
+                            <div
+                                class="w-8 h-8 rounded-full overflow-hidden">
+                                <img
+                                    src="{% static 'images/blank-profile-picture.png' %}"
+                                    alt=""
+                                    class="object-cover object-center overflow-hidden"
+                                />
+                            </div>
+                            <p>
+                                <a href="{% url 'topfragmarket:profile' listing.seller_id %}" class="hover:underline">@{{ listing.seller }}</a>
+                            </p>
+                        </div>
+                        <a href="{% url 'topfragmarket:listing_detail' listing.id %}" class="group block">
+                            <div class="w-[250px] h-[320px] bg-white overflow-hidden">
+                                <div
+                                    class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
+                                >
+                                    <img
+                                        class="w-full object-cover object-center"
+                                        alt="hero"
+                                        src="{{ listing.get_listing_image.image.url }}"
+                                    />
+                                </div>
+                                <div class="w-full h-1/2 py-2.5 px-3">
+                                    <p
+                                        class="group-hover:underline font-semibold truncate"
+                                    >
+                                        {{ listing.name }}
+                                    </p>
+                                    <h3
+                                        class="text-[#258f41] font-semibold text-2xl"
+                                    >
+                                        ₱ {{ listing.price }}
+                                    </h3>
+                                    <p class="text-sm font-light">
+                                        {{ listing.condition.name }}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('chatMessageForm', () => ({
+            messageBtn: false,
+            cancelMessageBtn: true,
+
+            toggle(button) {
+                if (button == 'messageBtn') {
+                    this.messageBtn = !this.messageBtn;
+                    this.cancelMessageBtn = !this.cancelMessageBtn;
+                } else if (button == 'cancelMessageBtn') {
+                    this.cancelMessageBtn = !this.cancelMessageBtn;
+                    this.messageBtn = !this.messageBtn;
+                }
+            },
+
+            addFileInput() {
+                if (this.fileInputCount == 3) {
+                    return null;
+                }
+    
+                let attachments = document.getElementById('attachments');
+    
+                let input = document.createElement('input');
+                input.type = 'file';
+                input.setAttribute('name', 'images[]');
+
+                let div = document.createElement('div');
+                
+                div.appendChild(input);
+
+                attachments.appendChild(div);
+    
+                this.fileInputCount++;
+
+                input.click();
+            }
+        }));
+    });
+</script>
+{% endblock %}

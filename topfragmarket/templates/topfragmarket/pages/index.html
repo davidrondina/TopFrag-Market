@@ -1,5 +1,6 @@
 {% extends "topfragmarket/pages/base.html" %} 
 {% load static %} 
+{% load urlparams %}
 {% block content %}
 <main
     x-data="{
@@ -74,7 +75,7 @@
             <h2 class="mb-5 font-bold text-2xl">Featured Categories</h2>
             <div class="flex justify-between gap-x-4">
                 <div class="group">
-                    <a href="#" class="flex">
+                    <a href="{% url 'topfragmarket:listings' %}{% urlparams category='desktops' %}" class="flex">
                         <div
                             style="
                                 background-image: url('static/images/items/desktop.jpg');
@@ -110,7 +111,7 @@
                 </div>
 
                 <div class="group">
-                    <a href="#" class="flex">
+                    <a href="{% url 'topfragmarket:listings' %}{% urlparams category='laptops & notebooks' %}" class="flex">
                         <div
                             style="
                                 background-image: url('static/images/items/laptop.jpg');
@@ -146,7 +147,7 @@
                 </div>
 
                 <div class="group">
-                    <a href="#" class="flex">
+                    <a href="{% url 'topfragmarket:listings' %}{% urlparams category='consoles' %}" class="flex">
                         <div
                             style="
                                 background-image: url('static/images/items/console.jpg');
@@ -182,7 +183,7 @@
                 </div>
 
                 <div class="group">
-                    <a href="#" class="flex">
+                    <a href="{% url 'topfragmarket:listings' %}{% urlparams category='videogames' %}" class="flex">
                         <div
                             style="
                                 background-image: url('static/images/items/videogame.jpg');
@@ -218,7 +219,7 @@
                 </div>
 
                 <div class="group">
-                    <a href="#" class="flex">
+                    <a href="{% url 'topfragmarket:listings' %}{% urlparams category='accessories' %}" class="flex">
                         <div
                             style="
                                 background-image: url('static/images/items/accessory.jpg');
@@ -262,13 +263,63 @@
             class="container mx-auto px-5 py-16 md:flex-row flex-col items-center"
         >
             <h2 class="mb-5 font-bold text-2xl">
-                Available acccessories in Bacoor, Cavite
+                Available videogames
             </h2>
             <div class="relative h-[380px] flex items-center">
                 <div
                     class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full flex justify-center gap-x-8"
                 >
-                    <template x-for="item in items">
+                    {% for vg in videogames %}
+                    <div class="bg-white rounded shadow overflow-hidden">
+                        <div
+                            class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
+                        >
+                            <div
+                                class="w-8 h-8 rounded-full overflow-hidden"
+                            >
+                                <img
+                                    src="{% static 'images/blank-profile-picture.png' %}"
+                                    alt=""
+                                    class="object-cover object-center overflow-hidden"
+                                />
+                            </div>
+                            <p>
+                                <a href="{% url 'topfragmarket:profile' vg.seller_id %}" class="hover:underline">@{{ vg.seller }}</a>
+                            </p>
+                        </div>
+                        <a href="{% url 'topfragmarket:listing_detail' vg.id %}" class="group block">
+                            <div
+                                class="w-[250px] h-[320px] bg-white overflow-hidden"
+                            >
+                                <div
+                                    class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
+                                >
+                                    <img
+                                        class="w-full object-cover object-center"
+                                        alt="hero"
+                                        src="{{ vg.get_listing_image.image.url }}"
+                                    />
+                                </div>
+                                <div class="w-full h-1/2 py-2.5 px-3">
+                                    <p
+                                        class="group-hover:underline font-semibold truncate"
+                                    >
+                                        {{ vg.name }}
+                                    </p>
+                                    <h3
+                                        class="text-[#258f41] font-semibold text-2xl"
+                                    >
+                                        ₱ {{ vg.price }}
+                                    </h3>
+                                    <p class="text-sm font-light">
+                                        {{ vg.condition.name }}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    {% comment %} <template x-for="item in items">
                         <div class="bg-white rounded shadow overflow-hidden">
                             <div
                                 class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
@@ -317,9 +368,9 @@
                                 </div>
                             </a>
                         </div>
-                    </template>
+                    </template> {% endcomment %}
                 </div>
-                <div
+                {% comment %} <div
                     class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full flex justify-between"
                 >
                     <button
@@ -347,7 +398,7 @@
                             ></path>
                         </svg>
                     </button>
-                </div>
+                </div> {% endcomment %}
             </div>
         </div>
     </section>
@@ -358,13 +409,63 @@
             class="container mx-auto px-5 py-16 md:flex-row flex-col items-center"
         >
             <h2 class="mb-5 font-bold text-2xl">
-                Available videogames in Bacoor, Cavite
+                Available accessories
             </h2>
             <div class="relative h-[380px] flex items-center">
                 <div
                     class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full flex justify-center gap-x-8"
                 >
-                    <template x-for="item in items">
+                    {% for acc in accessories %}
+                    <div class="bg-white rounded shadow overflow-hidden">
+                        <div
+                            class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
+                        >
+                            <div
+                                class="w-8 h-8 rounded-full overflow-hidden"
+                            >
+                                <img
+                                    src="{% static 'images/blank-profile-picture.png' %}"
+                                    alt=""
+                                    class="object-cover object-center overflow-hidden"
+                                />
+                            </div>
+                            <p>
+                                <a href="{% url 'topfragmarket:profile' acc.seller_id %}" class="hover:underline">@{{ acc.seller }}</a>
+                            </p>
+                        </div>
+                        <a href="{% url 'topfragmarket:listing_detail' acc.id %}" class="group block">
+                            <div
+                                class="w-[250px] h-[320px] bg-white overflow-hidden"
+                            >
+                                <div
+                                    class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
+                                >
+                                    <img
+                                        class="w-full object-cover object-center"
+                                        alt="hero"
+                                        src="{{ acc.get_listing_image.image.url }}"
+                                    />
+                                </div>
+                                <div class="w-full h-1/2 py-2.5 px-3">
+                                    <p
+                                        class="group-hover:underline font-semibold truncate"
+                                    >
+                                        {{ acc.name }}
+                                    </p>
+                                    <h3
+                                        class="text-[#258f41] font-semibold text-2xl"
+                                    >
+                                        ₱ {{ acc.price }}
+                                    </h3>
+                                    <p class="text-sm font-light">
+                                        {{ acc.condition.name }}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    {% comment %} <template x-for="item in items">
                         <div class="bg-white rounded shadow overflow-hidden">
                             <div
                                 class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
@@ -413,9 +514,9 @@
                                 </div>
                             </a>
                         </div>
-                    </template>
+                    </template> {% endcomment %}
                 </div>
-                <div
+                {% comment %} <div
                     class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full flex justify-between"
                 >
                     <button
@@ -443,11 +544,12 @@
                             ></path>
                         </svg>
                     </button>
-                </div>
+                </div> {% endcomment %}
             </div>
         </div>
     </section>
 
+    {% comment %} NEWLY LISTED ITEMS {% endcomment %}
     <section data-aos="fade-up" data-aos-easing="ease-in-out" class="body-font">
         <div
             class="container mx-auto px-5 py-16 md:flex-row flex-col items-center"
@@ -457,6 +559,7 @@
                 <div
                     class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full flex justify-center gap-x-8"
                 >
+                    {% for rl in recent_listings %}
                     <div class="bg-white rounded shadow overflow-hidden">
                         <div
                             class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
@@ -469,10 +572,10 @@
                                 />
                             </div>
                             <p>
-                                <a href="#" class="hover:underline">User</a>
+                                <a href="{% url 'topfragmarket:profile' rl.seller_id %}" class="hover:underline">@{{ rl.seller }}</a>
                             </p>
                         </div>
-                        <a href="#" class="group block">
+                        <a href="{% url 'topfragmarket:listing_detail' rl.id %}" class="group block">
                             <div
                                 class="w-[250px] h-[320px] bg-white overflow-hidden"
                             >
@@ -480,169 +583,33 @@
                                     class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
                                 >
                                     <img
-                                        class="object-cover object-center"
+                                        class="w-full object-cover object-center"
                                         alt="hero"
-                                        src="{% static 'images/items/keyboard.jpg' %}"
+                                        src="{{ rl.get_listing_image.image.url }}"
                                     />
                                 </div>
                                 <div class="w-full h-1/2 py-2.5 px-3">
                                     <p
                                         class="group-hover:underline font-semibold truncate"
                                     >
-                                        Item 1
+                                        {{ rl.name }}
                                     </p>
                                     <h3
                                         class="text-[#258f41] font-semibold text-2xl"
                                     >
-                                        P 200.00
+                                        ₱ {{ rl.price }}
                                     </h3>
                                     <p class="text-sm font-light">
-                                        Lightly used
+                                        {{ rl.condition.name }}
                                     </p>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="bg-white rounded shadow overflow-hidden">
-                        <div
-                            class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
-                        >
-                            <div class="w-8 h-8 rounded-full overflow-hidden">
-                                <img
-                                    src="{% static 'images/blank-profile-picture.png' %}"
-                                    alt=""
-                                    class="object-cover object-center overflow-hidden"
-                                />
-                            </div>
-                            <p>
-                                <a href="#" class="hover:underline">User</a>
-                            </p>
-                        </div>
-                        <a href="#" class="group block">
-                            <div
-                                class="w-[250px] h-[320px] bg-white overflow-hidden"
-                            >
-                                <div
-                                    class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
-                                >
-                                    <img
-                                        class="object-cover object-center"
-                                        alt="hero"
-                                        src="{% static 'images/items/videogame.jpg' %}"
-                                    />
-                                </div>
-                                <div class="w-full h-1/2 py-2.5 px-3">
-                                    <p
-                                        class="group-hover:underline font-semibold truncate"
-                                    >
-                                        Item 1
-                                    </p>
-                                    <h3
-                                        class="text-[#258f41] font-semibold text-2xl"
-                                    >
-                                        P 200.00
-                                    </h3>
-                                    <p class="text-sm font-light">
-                                        Lightly used
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="bg-white rounded shadow overflow-hidden">
-                        <div
-                            class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
-                        >
-                            <div class="w-8 h-8 rounded-full overflow-hidden">
-                                <img
-                                    src="{% static 'images/blank-profile-picture.png' %}"
-                                    alt=""
-                                    class="object-cover object-center overflow-hidden"
-                                />
-                            </div>
-                            <p>
-                                <a href="#" class="hover:underline">User</a>
-                            </p>
-                        </div>
-                        <a href="#" class="group block">
-                            <div
-                                class="w-[250px] h-[320px] bg-white overflow-hidden"
-                            >
-                                <div
-                                    class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
-                                >
-                                    <img
-                                        class="object-cover object-center"
-                                        alt="hero"
-                                        src="{% static 'images/items/keyboard.jpg' %}"
-                                    />
-                                </div>
-                                <div class="w-full h-1/2 py-2.5 px-3">
-                                    <p
-                                        class="group-hover:underline font-semibold truncate"
-                                    >
-                                        Item 1
-                                    </p>
-                                    <h3
-                                        class="text-[#258f41] font-semibold text-2xl"
-                                    >
-                                        P 200.00
-                                    </h3>
-                                    <p class="text-sm font-light">
-                                        Lightly used
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="rounded shadow overflow-hidden">
-                        <div
-                            class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow"
-                        >
-                            <div class="w-8 h-8 rounded-full overflow-hidden">
-                                <img
-                                    src="{% static 'images/blank-profile-picture.png' %}"
-                                    alt=""
-                                    class="object-cover object-center overflow-hidden"
-                                />
-                            </div>
-                            <p>
-                                <a href="#" class="hover:underline">User</a>
-                            </p>
-                        </div>
-                        <a href="#" class="group block">
-                            <div
-                                class="w-[250px] h-[320px] bg-white overflow-hidden"
-                            >
-                                <div
-                                    class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
-                                >
-                                    <img
-                                        class="object-cover object-center"
-                                        alt="hero"
-                                        src="{% static 'images/items/videogame.jpg' %}"
-                                    />
-                                </div>
-                                <div class="w-full h-1/2 py-2.5 px-3">
-                                    <p
-                                        class="group-hover:underline font-semibold truncate"
-                                    >
-                                        Item 1
-                                    </p>
-                                    <h3
-                                        class="text-[#258f41] font-semibold text-2xl"
-                                    >
-                                        P 200.00
-                                    </h3>
-                                    <p class="text-sm font-light">
-                                        Lightly used
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    {% endfor %}
                 </div>
-                <div
+
+                {% comment %} <div
                     class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full flex justify-between"
                 >
                     <button
@@ -670,7 +637,7 @@
                             ></path>
                         </svg>
                     </button>
-                </div>
+                </div> {% endcomment %}
             </div>
         </div>
     </section>
@@ -734,7 +701,7 @@
                 <button
                     class="bg-[#258f41] hover:bg-[#1d7535] inline-flex text-white font-semibold border-0 focus:outline-none rounded text-lg rounded"
                 >
-                    <a href="#" class="px-10 py-2">Join</a>
+                    <a href="{% url 'topfragmarket:forum' %}" class="px-10 py-2">Join</a>
                 </button>
             </div>
         </div>

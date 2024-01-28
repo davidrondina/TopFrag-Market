@@ -1,0 +1,156 @@
+{% extends "topfragmarket/pages/base.html" %} 
+{% load static %} 
+{% block content %}
+<main class="flex flex-col min-h-screen">
+    {% comment %} You are now logged in! {% endcomment %}
+    <section class="">
+        <div class="container mx-auto px-5 py-10 flex flex-col">
+            <h1 class="mb-5 font-bold text-3xl">
+                Register an account
+            </h1>
+
+            <div class="w-full">
+                <form action="{% url 'topfragmarket:register' %}" method="post" enctype="multipart/form-data" class="flex flex-col gap-y-2">
+                    {% csrf_token %}
+                    
+                    {% comment %} <div>
+                        {{ user_form.as_p }} 
+                    </div>  {% endcomment %}
+
+                    <div class="mb-8 flex flex-col gap-y-2">
+                        <div class="w-full">
+                            {{ user_form.username.label }}
+                            {{ user_form.username }}
+                            {% if user_form.username.errors %}
+                                {% for error in user_form.username.errors %}
+                                    {{ error }}  
+                                {% endfor %}
+                            {% endif %}
+                            {{ user_form.username.help_text }}
+                        </div>
+    
+                        <div class="w-full">
+                            {{ user_form.email.label }}
+                            {{ user_form.email }}
+                            {% if user_form.email.errors %}
+                                {% for error in user_form.email.errors %}
+                                    {{ error }}  
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+    
+                        <div class="w-full flex flex-wrap">
+                            <div class="grow-[1]">
+                                {{ user_form.password1.label }}
+                                {{ user_form.password1 }}
+                                {% if user_form.password1.errors %}
+                                    {% for error in user_form.password1.errors %}
+                                        {{ error }}  
+                                    {% endfor %}
+                                {% endif %}
+                                {{ user_form.password1.help_text }}
+                            </div>
+        
+                            <div class="grow-[1]">
+                                {{ user_form.password2.label }}
+                                {{ user_form.password2 }}
+                                {% if user_form.password2.errors %}
+                                    {% for error in user_form.password2.errors %}
+                                        {{ error }}  
+                                    {% endfor %}
+                                {% endif %}
+                                <p>{{ user_form.password2.help_text }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% comment %} {% for field in form %}
+                        <p>
+                            {% if field.errors %}
+                            <ul class="errorlist">
+                                {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            {{ field.label_tag }} {{ field }}
+                        </p>
+                        {% endfor %} {% endcomment %}
+
+                    <h2 class="font-bold text-xl mb-3">Profile Setup</h2>
+
+                    <div class="flex flex-col gap-y-2">
+                        <div class="w-full">
+                            {{ profile_form.first_name.label }}
+                            {{ profile_form.first_name }}
+                            {% if profile_form.first_name.errors %}
+                                {% for error in profile_form.first_name.errors %}
+                                    {{ error }}  
+                                {% endfor %}
+                            {% endif %}
+                            {{ profile_form.first_name.help_text }}
+                        </div>
+
+                        <div class="w-full">
+                            {{ profile_form.middle_name.label }}
+                            {{ profile_form.middle_name }}
+                            {% if profile_form.middle_name.errors %}
+                                {% for error in profile_form.middle_name.errors %}
+                                    {{ error }}  
+                                {% endfor %}
+                            {% endif %}
+                            {{ profile_form.middle_name.help_text }}
+                        </div>
+
+                        <div class="w-full">
+                            {{ profile_form.surname.label }}
+                            {{ profile_form.surname }}
+                            {% if profile_form.surname.errors %}
+                                {% for error in profile_form.surname.errors %}
+                                    {{ error }}  
+                                {% endfor %}
+                            {% endif %}
+                            {{ profile_form.surname.help_text }}
+                        </div>
+
+                        <div class="w-full">
+                            {{ profile_form.contact_no.label }}
+                            {{ profile_form.contact_no }}
+                            {% if profile_form.contact_no.errors %}
+                                {% for error in profile_form.contact_no.errors %}
+                                    {{ error }}  
+                                {% endfor %}
+                            {% endif %}
+                            {{ profile_form.contact_.nohelp_text }}
+                        </div>
+
+                        <div class="w-full flex flex-wrap">
+                            <div class="grow-[1]">
+                                {{ profile_form.birthdate.label }}
+                                {{ profile_form.birthdate }}
+                                {% if profile_form.birthdate.errors %}
+                                    {% for error in profile_form.birthdate.errors %}
+                                        {{ error }}  
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+        
+                            <div class="grow-[1]">
+                                {{ profile_form.sex.label }}
+                                {{ profile_form.sex }}
+                                {% if profile_form.sex.errors %}
+                                    {% for error in profile_form.sex.errors %}
+                                        {{ error }}  
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="mt-6 bg-[#258f41] hover:bg-[#1d7535] w-full text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded">Register</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

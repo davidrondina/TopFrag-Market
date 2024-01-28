@@ -5,99 +5,114 @@
 <main class="flex flex-col">
     <section>
         <div class="container mx-auto px-5 py-10 flex flex-col">
-            <h1 class="mb-5 text-3xl font-bold">Listing Category Name</h1>
+            <h1 class="mb-5 text-3xl font-bold">Listings</h1>
 
-            <div class="flex flex-wrap gap-5">
-                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
-                    <option selected>Category</option>
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
-                </select>
+            <form action="{% url 'topfragmarket:listings' %}" method="POST">
+                {% csrf_token %}
+                <div class="flex flex-wrap items-center gap-5">
+                    <select name="category" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
+                        <option disabled selected>Category</option>
+                        {% for c in categories %}
+                        <option value="{{ c.0 }}">{{ c.1 }}</option>
+                        {% endfor %}
+                    </select>
+    
+                    <select name="created_at" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
+                        <option disabled selected>Date</option>
+                        <option value="-created_at">Latest</option>
+                        <option value="created_at">Old</option>
+                    </select>
+    
+                    <div class="border border-gray-300"></div>
+    
+                    <select name="condition" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
+                        <option disabled selected>Condition</option>
+                        {% for c in conditions %}
+                        <option value="{{ c.id }}">{{ c.name }}</option>
+                        {% endfor %}
+                    </select>
+    
+                    <select name="price" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
+                        <option disabled selected>Price</option>
+                        <option value="-price">High to Low</option>
+                        <option value="price">Low to High</option>
+                    </select>
+    
+                    <select name="deal_option" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
+                        <option disabled selected>Deal Option</option>
+                        {% for do in deal_options %}
+                        <option value="{{ do.0 }}">{{ do.1 }}</option>
+                        {% endfor %}
+                    </select>
+    
+                    <select name="location" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4" required>
+                        <option disabled selected>Location</option>
+                        {% for l in locations %}
+                        <option value="{{ l.0 }}">{{ l.1 }}</option>
+                        {% endfor %}
+                    </select>
 
-                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
-                    <option selected>Recent</option>
-                    <option selected>Old</option>
-                </select>
-
-                <div class="border border-gray-300"></div>
-
-                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
-                    <option selected>Condition</option>
-                    <option value="US">Brand New</option>
-                    <option value="CA">Lightly Used</option>
-                    <option value="FR">Well Used</option>
-                    <option value="DE">Germany</option>
-                </select>
-
-                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
-                    <option selected>Price</option>
-                    <option value="US">High to Low</option>
-                    <option value="CA">Low to High</option>
-                </select>
-
-                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
-                    <option selected>Deal Option</option>
-                    <option value="US">Meetup</option>
-                    <option value="CA">Mailing</option>
-                    <option value="FR">Delivery</option>
-                </select>
-
-                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-3xl focus:ring-blue-500 focus:border-blue-500 py-2.5 px-4">
-                    <option selected>Location</option>
-                    <option value="US">Nearby</option>
-                    <option value="CA">Cavite</option>
-                    <option value="FR">Delivery</option>
-                </select>
-            </div>
+                    <div><button type="submit" class="bg-[#258f41] hover:bg-[#1d7535] py-1 px-3 inline-flex items-center border-0 focus:outline-none text-white rounded text-base mt-4 md:mt-0 rounded">Go</button></div>
+                </div>
+            </form>
         </div>
     </section>
 
     <section class="min-h-screen">
         <div class="container mx-auto px-5 pb-16 flex flex-col">
-            <div x-data="allListing" class="flex flex-wrap gap-5">
-                <template x-for="listing in listings">
-                    <div class="bg-white rounded shadow overflow-hidden">
-                        <div class="group px-3 bg-white rounded-t shadow">
-                            <a href="#" class="flex items-center gap-x-3 py-2.5 ">
-                                <div class="w-8 h-8 rounded-full overflow-hidden">
-                                    <img src="{% static 'images/blank-profile-picture.png' %}" alt="" class="object-cover object-center overflow-hidden"/>
-                                </div>
-                                <p class="group-hover:underline">User</p>
-                            </a>
-                        </div>
-                        <a href="#" class="group block">
-                            <div class="w-[250px] h-[320px] bg-white overflow-hidden">
-                                <div
-                                    class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
-                                >
-                                    <img
-                                        class="object-cover object-center"
-                                        alt="hero"
-                                        src="{% static 'images/items/keyboard.jpg' %}"
-                                    />
-                                </div>
-                                <div class="w-full h-1/2 py-2.5 px-3">
-                                    <p
-                                        class="group-hover:underline font-semibold truncate"
-                                    >
-                                        Item 1
-                                    </p>
-                                    <h3
-                                        class="text-[#258f41] font-semibold text-2xl"
-                                    >
-                                        P 200.00
-                                    </h3>
-                                    <p class="text-sm font-light">
-                                        Lightly used
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </template>
+            {% if not listings %}
+            <div class="py-6 flex justify-center items-center">
+                <h2 class="text-gray-500 text-center text-lg">No listings found.</h2>
             </div>
+            {% else %}
+            <div x-data="allListing" class="flex flex-wrap gap-5">
+                {% for listing in listings %}
+                <div class="bg-white rounded shadow overflow-hidden">
+                    <div class="flex items-center gap-x-3 py-2.5 px-3 bg-white rounded-t shadow">
+                        <div
+                            class="w-8 h-8 rounded-full overflow-hidden">
+                            <img
+                                src="{% static 'images/blank-profile-picture.png' %}"
+                                alt=""
+                                class="object-cover object-center overflow-hidden"
+                            />
+                        </div>
+                        <p>
+                            <a href="{% url 'topfragmarket:profile' listing.seller_id %}" class="hover:underline">@{{ listing.seller }}</a>
+                        </p>
+                    </div>
+                    <a href="{% url 'topfragmarket:listing_detail' listing.id %}" class="group block">
+                        <div class="w-[250px] h-[320px] bg-white overflow-hidden">
+                            <div
+                                class="w-full max-w-[100%] h-[600px] max-h-[60%] overflow-hidden"
+                            >
+                                <img
+                                    class="w-full object-cover object-center"
+                                    alt="hero"
+                                    src="{{ listing.get_listing_image.image.url }}"
+                                />
+                            </div>
+                            <div class="w-full h-1/2 py-2.5 px-3">
+                                <p
+                                    class="group-hover:underline font-semibold truncate"
+                                >
+                                    {{ listing.name }}
+                                </p>
+                                <h3
+                                    class="text-[#258f41] font-semibold text-2xl"
+                                >
+                                    ₱ {{ listing.price }}
+                                </h3>
+                                <p class="text-sm font-light">
+                                    {{ listing.condition.name }}
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
     </section>
 </main>

@@ -10,7 +10,9 @@
                 Login
             </h1>
 
-            <form method="get">
+            <form action="{% url 'topfragmarket:login' %}" method="post">
+                {% csrf_token %}
+
                 <div class="mb-6">
                     <label
                         for="default-input"
@@ -19,9 +21,11 @@
                     >
                     <input
                         type="text"
-                        id="default-input"
+                        name="username"
+                        id="username"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         placeholder="Enter your username"
+                        required
                     />
                 </div>
 
@@ -32,32 +36,32 @@
                         >Password</label
                     >
                     <input
-                        type="text"
-                        id="default-input"
+                        type="password"
+                        name="password"
+                        id="password"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         placeholder="Enter your password"
+                        required
                     />
-                    <p class="mt-2">
+                    {% comment %} <p class="mt-2">
                         <a href="#" class="text-blue-600 hover:text-blue-700"
                             >Forgot password?</a
                         >
-                    </p>
+                    </p> {% endcomment %}
                 </div>
 
                 <div class="flex justify-center">
-                    <button
-                        class="bg-[#258f41] hover:bg-[#1d7535] w-full text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded"
-                    >
+                    <button type="submit" class="bg-[#258f41] hover:bg-[#1d7535] w-full text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded">
                         Enter
                     </button>
                 </div>
 
-                <p class="mt-2">
+                {% comment %} <p class="mt-2">
                     Don't have an account?
                     <a href="#" class="text-blue-600 hover:text-blue-700"
                         >Register</a
                     >
-                </p>
+                </p> {% endcomment %}
             </form>
         </div>
     </section>

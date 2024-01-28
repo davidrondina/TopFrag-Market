@@ -1,0 +1,30 @@
+{% extends "topfragmarket/pages/base.html" %} 
+{% load static %} 
+{% block content %}
+<main class="flex flex-col h-screen">
+    {% comment %} You are now logged in! {% endcomment %}
+    <section class="">
+        <div class="container mx-auto px-5 py-10 flex flex-col">
+            <div class="mb-8">
+                <a href="javascript:history.go(-1)" class="px-3 py-1 inline-flex items-center bg-white border-0 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0 rounded shadow"><i class="ri-arrow-left-line"></i> Back</a>
+            </div>
+            
+            <ul class="mb-6 space-y-3 max-h-[400px] overflow-y-auto">
+                {% for message in chat_messages %}
+                    <li class="flex {% if message.sender_id == user.id  %}{{ 'justify-end' }} {% endif %}"><p class="w-auto max-w-1/2 {% if message.sender_id == user.id  %}{{ 'bg-green-100' }}{% else %}{{ 'bg-white' }}{% endif %} px-4 py-2 rounded shadow">- {{ message.content }}</p></li>
+                {% endfor %}
+            </ul>
+
+            <form action="{% url 'topfragmarket:chat_detail' chat_id %}" method="post">
+                {% csrf_token %}
+
+                <div>
+                    {{ form.as_p }}
+                </div>
+
+                <button type="submit" class="mt-6 bg-[#258f41] hover:bg-[#1d7535] text-center text-white font-semibold border-0 py-2 px-6 focus:outline-none rounded">Send</button>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}
