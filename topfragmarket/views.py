@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .decorators import *
 from django.shortcuts import get_object_or_404
 from .models import *
 from .forms import *
@@ -24,7 +25,7 @@ def register_user(request):
     
     if request.method == 'POST':
         user_form = RegisterForm(request.POST)
-        profile_form = ProfileForm(request.POST)
+        # profile_form = ProfileForm(request.POST)
         
         if user_form.is_valid():
             reg_user = user_form.save(commit=False)
@@ -33,12 +34,6 @@ def register_user(request):
             # Store the user credential in the database
             reg_user.save()
             
-            profile = profile_form.save(commit=False)
-            profile.user_id = reg_user.id
-            
-            # Create profile related to the user
-            profile.save()
-    
             # Check if user exists in the database
             auth_user = authenticate(request, username=reg_user.username, password=user_form.cleaned_data['password1'])
             
@@ -46,9 +41,27 @@ def register_user(request):
             if auth_user is not None:
                 login(request, auth_user)
 
-                messages.success(request, 'Registered successfully! Welcome to TopFrag Market!')
+                messages.success(request, 'Registered successfully! Setup your profile to get started.')
                 
-                return redirect('topfragmarket:dashboard')    
+                return redirect('topfragmarket:create_profile') 
+                 
+            
+            # profile = profile_form.save(commit=False)
+            # profile.user_id = reg_user.id
+            
+            # # Create profile related to the user
+            # profile.save()
+    
+            # # Check if user exists in the database
+            # auth_user = authenticate(request, username=reg_user.username, password=user_form.cleaned_data['password1'])
+            
+            # # If user exists, log them into the system
+            # if auth_user is not None:
+            #     login(request, auth_user)
+
+            #     messages.success(request, 'Registered successfully! Welcome to TopFrag Market!')
+                
+            #     return redirect('topfragmarket:dashboard')    
         else:
             messages.error(request, 'User registration error. Please make sure you provided correct input.')
     
@@ -59,6 +72,10 @@ def register_user(request):
 # UNUSED VIEW FUNC
 def create_profile(request):
     user = request.user
+    user_has_profile = Profile.objects.filter(user_id=user.id).count() > 0
+    
+    if user_has_profile:
+        return redirect('topfragmarket:dashboard')
     
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST)
@@ -123,6 +140,7 @@ def categories(request):
     return render(request, 'topfragmarket/pages/categories.html')
 
 @login_required
+@profile_required
 def dashboard(request):
     user = request.user
     listings =  Listing.objects.filter(seller_id=user.id).order_by('-created_at')
@@ -201,6 +219,7 @@ def listings(request):
     return render(request, 'topfragmarket/pages/listings.html', context)
 
 @login_required
+@profile_required
 def listing_detail(request, listing_id):
     user = request.user
     listing = get_object_or_404(Listing, pk=listing_id)
@@ -262,6 +281,7 @@ def listing_detail(request, listing_id):
     return render(request, 'topfragmarket/pages/listing/detail.html', context)
 
 @login_required
+@profile_required
 def create_listing(request):
     user = request.user
     
@@ -300,6 +320,7 @@ def create_listing(request):
     return render(request, 'topfragmarket/pages/listing/create.html', context)
 
 @login_required
+@profile_required
 def update_listing_status(request, listing_id):
     user = request.user
     listing = Listing.objects.get(pk=listing_id)
@@ -324,6 +345,7 @@ def update_listing_status(request, listing_id):
     return redirect('topfragmarket:listing_detail', listing_id=listing_id)
 
 @login_required
+@profile_required
 def update_listing(request, listing_id):
     user = request.user
     listing = Listing.objects.get(pk=listing_id) 
@@ -355,6 +377,7 @@ def update_listing(request, listing_id):
     return render(request, 'topfragmarket/pages/dashboard/listing/edit.html', context)
 
 @login_required
+@profile_required
 def delete_listing(request, listing_id):
     user = request.user
     listing = Listing.objects.get(pk=listing_id)
@@ -371,6 +394,7 @@ def delete_listing(request, listing_id):
     return redirect('topfragmarket:dashboard')
     
 @login_required
+@profile_required
 def chats(request):
     user = request.user
     
@@ -403,6 +427,7 @@ def chats(request):
     return render(request, 'topfragmarket/pages/chat/chats.html', context)
 
 @login_required
+@profile_required
 def chat_detail(request, chat_id):
     user = request.user
     
@@ -432,19 +457,24 @@ def chat_detail(request, chat_id):
 
 def forum(request):
     context = {}
+    user = request.user
     topics = Thread.TOPIC_CHOICES
     topic = request.GET.get('topic')
+    filter_query = request.GET.get('filter')
     
     context['topics'] = topics
     
     if topic:
         context['threads'] = Thread.objects.filter(topic=topic).order_by('-created_at')
+    elif filter_query == 'user':
+        context['threads'] = Thread.objects.filter(user_id=user.id).order_by('-created_at')
     else:
         context['threads'] = Thread.objects.order_by('-created_at')
     
     return render(request, 'topfragmarket/pages/forum/threads.html', context)
 
 @login_required
+@profile_required
 def thread_detail(request, thread_id):
     user = request.user
     
@@ -472,6 +502,7 @@ def thread_detail(request, thread_id):
     return render(request, 'topfragmarket/pages/forum/thread/detail.html', context)
 
 @login_required
+@profile_required
 def create_thread(request):
     user = request.user
     if request.method == 'POST':
@@ -505,6 +536,7 @@ def create_thread(request):
     return render(request, 'topfragmarket/pages/forum/thread/create.html', context)
 
 @login_required
+@profile_required
 def update_thread(request, thread_id):
     user = request.user
     thread = Thread.objects.get(pk=thread_id) 
@@ -536,6 +568,7 @@ def update_thread(request, thread_id):
     return render(request, 'topfragmarket/pages/forum/thread/edit.html', context)
 
 @login_required
+@profile_required
 def delete_thread(request, thread_id):
     user = request.user
     thread = Thread.objects.get(pk=thread_id)

@@ -12,7 +12,7 @@
                 </h1>
 
                 <div>
-                    <button class="bg-[#258f41] hover:bg-[#1d7535] text-white inline-flex items-center border-0  focus:outline-none rounded text-base mt-4 md:mt-0 rounded">
+                    <button class="bg-[#258f41] hover:bg-[#1d7535] text-white inline-flex items-center border-0 focus:outline-none rounded text-base mt-4 md:mt-0 rounded shadow">
                         <a href="{% url 'topfragmarket:create_thread' %}" class="py-1 px-3">+ Submit a thread</a>
                     </button>
                 </div>
@@ -28,10 +28,22 @@
                     {% endif %}"
                 >
                     All</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'topfragmarket:forum' %}{% urlparams filter_query='user' %}" 
+                    class="px-3 py-1 inline-flex items-center border-0 focus:outline-none text-base mt-4 md:mt-0 rounded shadow 
+                    {% if request.get_full_path == '/forum/?filter_query=user' %} 
+                    {{ 'bg-[#258f41] hover:bg-[#1d7535] text-white' }}
+                    {% else %}
+                    {{ 'bg-white hover:bg-gray-200' }}
+                    {% endif %}"
+                >
+                    My Threads</a>
+                {% endif %}
                 {% for t in topics %}
                 <a href="{% url 'topfragmarket:forum' %}{% urlparams topic=t.0 %}" 
                     class="px-3 py-1 inline-flex items-center border-0 focus:outline-none text-base mt-4 md:mt-0 rounded shadow {% with '/forum/?topic='|add:t.0 as path %}
-                        {% if request.get_full_path == path %} {{ 'bg-[#258f41] hover:bg-[#1d7535] text-white' }}
+                        {% if request.get_full_path == path %}
+                        {{ 'bg-[#258f41] hover:bg-[#1d7535] text-white' }}
                         {% else %}
                         {{ 'bg-white hover:bg-gray-200' }}
                         {% endif %}

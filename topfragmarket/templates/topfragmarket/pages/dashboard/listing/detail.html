@@ -24,10 +24,11 @@
                     </p>
 
                     <div class="my-6 grid grid-cols-2 gap-4">
-                        <div>{{ listing.condition.name }}</div>
-                        <div>{{ listing.location.capitalize }}</div>
-                        <div>{{ listing.deal_option.capitalize }}</div>
+                        <div><i class="ri-notification-badge-line"></i> {{ listing.condition.name }}</div>
+                        <div><i class="ri-map-pin-line"></i> {{ listing.location.capitalize }}</div>
+                        <div><i class="ri-shake-hands-line"></i> {{ listing.deal_option.capitalize }}</div>
                     </div>
+
 
                     <div class="mb-6">
                         <form action="{% url 'topfragmarket:update_listing_status' listing.id %}" method="POST">

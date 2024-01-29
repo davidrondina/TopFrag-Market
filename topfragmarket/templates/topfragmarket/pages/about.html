@@ -4,15 +4,17 @@
 <main class="flex flex-col min-h-screen">
     <section class="">
         <div class="container mx-auto px-5 py-10 flex flex-col">
-            <h1 class="mb-5 font-bold text-3xl">
-                About
-            </h1>
 
             {% comment %} class="lg:w-4/6 mx-auto" {% endcomment %}
             <div class="w-full mx-auto">
-                <div class="rounded-lg h-64 overflow-hidden">
-                  <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1200x500">
-                  {% comment %} <div><span class="ml text-4xl font-semibold"><span class="text-[#258f41]">TOPFRAG</span> MARKET</span></div> {% endcomment %}
+                <div class="rounded-lg h-28 overflow-hidden">
+                  {% comment %} <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/1200x500"> {% endcomment %}
+                  <div class="w-full h-full flex justify-center items-center">
+                    <img src="{% static 'images/brand-logo-512x512.png' %}" class="w-24 h-24 mix-blend-darken" alt="logo">
+                    <div>
+                      <span class="ml text-4xl font-semibold"><span class="text-[#258f41]">TOPFRAG</span> MARKET</span>
+                    </div>
+                  </div>
                 </div>
                 <div class="flex flex-col sm:flex-row mt-10">
                   <div class="sm:w-1/3 text-center sm:pr-8 sm:py-8">
@@ -28,9 +30,9 @@
                       <p class="text-base">Web Developer; Pixel Artist</p>
                     </div>
                   </div>
-                  <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-200 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
+                  <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-gray-300 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">
                     <p class="leading-relaxed text-lg mb-4">Hi! I'm David Rondina. I made this project for my college course.<br><strong>TOPFRAG MARKET</strong> is an online marketplace project where people can buy & sell used gadgets, videogames, gaming accessories, etc. It also has a forum for users to discuss anything related to tech & gaming.</p>
-                    <a href="https://github.com/davidrondina" class="text-[#258f41] inline-flex items-center">GitHub Profile
+                    <a href="https://github.com/davidrondina" target="_blank" class="text-[#258f41] inline-flex items-center">GitHub Profile
                       <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                         <path d="M5 12h14M12 5l7 7-7 7"></path>
                       </svg>

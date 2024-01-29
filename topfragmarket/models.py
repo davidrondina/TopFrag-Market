@@ -24,10 +24,6 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.surname}'
     
-    def user_has_profile(user_id):
-        print(Profile.objects.filter(user_id=user_id).count() > 0)
-        return Profile.objects.filter(user_id=user_id).count() > 0
-    
 class Condition(models.Model):
     name = models.CharField(max_length=20, null=True)
     description = models.CharField(max_length=80, null=True)

@@ -24,9 +24,9 @@
                     </p>
 
                     <div class="my-6 grid grid-cols-2 gap-4">
-                        <div>{{ listing.condition.name }}</div>
-                        <div>{{ listing.location.capitalize }}</div>
-                        <div>{{ listing.deal_option.capitalize }}</div>
+                        <div><i class="ri-notification-badge-line"></i> {{ listing.condition.name }}</div>
+                        <div><i class="ri-map-pin-line"></i> {{ listing.location.capitalize }}</div>
+                        <div><i class="ri-shake-hands-line"></i> {{ listing.deal_option.capitalize }}</div>
                     </div>
 
                     <div x-data="chatMessageForm()">
@@ -99,7 +99,7 @@
                         <p class="text-gray-500">Joined {{ listing.seller.date_joined }}</p>
                     </div>
 
-                    <a href="{% url 'topfragmarket:profile' listing.seller.id %}" class="hover:underline font-semibold text-blue-500">View Profile ></a>
+                    <a href="{% url 'topfragmarket:profile' listing.seller.id %}" class="hover:underline font-semibold text-[#258f41]">View Profile ></a>
                 </div>
             </div>
         </div>
