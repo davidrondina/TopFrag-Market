@@ -104,7 +104,13 @@
                                         ></path>
                                     </svg>
                                 </h3>
-                                <p class="text-white">100+ listings</p>
+                                <p class="text-white">
+                                    {% if fcategory_total_listings.0 >= 100  %}
+                                    100+ listings
+                                    {% else %}
+                                    {{ fcategory_total_listings.0 }} listings
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                     </a>
@@ -140,7 +146,13 @@
                                         ></path>
                                     </svg>
                                 </h3>
-                                <p class="text-white">100+ listings</p>
+                                <p class="text-white">
+                                    {% if fcategory_total_listings.1 >= 100  %}
+                                    100+ listings
+                                    {% else %}
+                                    {{ fcategory_total_listings.1 }} listings
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                     </a>
@@ -176,7 +188,13 @@
                                         ></path>
                                     </svg>
                                 </h3>
-                                <p class="text-white">100+ listings</p>
+                                <p class="text-white">
+                                    {% if fcategory_total_listings.2 >= 100  %}
+                                    100+ listings
+                                    {% else %}
+                                    {{ fcategory_total_listings.2 }} listings
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                     </a>
@@ -212,7 +230,13 @@
                                         ></path>
                                     </svg>
                                 </h3>
-                                <p class="text-white">100+ listings</p>
+                                <p class="text-white">
+                                    {% if fcategory_total_listings.3 >= 100  %}
+                                    100+ listings
+                                    {% else %}
+                                    {{ fcategory_total_listings.3 }} listings
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                     </a>
@@ -248,7 +272,13 @@
                                         ></path>
                                     </svg>
                                 </h3>
-                                <p class="text-white">100+ listings</p>
+                                <p class="text-white">
+                                    {% if fcategory_total_listings.4 >= 100  %}
+                                    100+ listings
+                                    {% else %}
+                                    {{ fcategory_total_listings.4 }} listings
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                     </a>
@@ -278,7 +308,8 @@
                                 class="w-8 h-8 rounded-full overflow-hidden"
                             >
                                 <img
-                                    src="{% static 'images/blank-profile-picture.png' %}"
+                                    src="https://ui-avatars.com/api/?name={{vg.seller.profile.first_name}}+{{vg.seller.profile.surname}}"
+                                    {% comment %} src="{% static 'images/blank-profile-picture.png' %}" {% endcomment %}
                                     alt=""
                                     class="object-cover object-center overflow-hidden"
                                 />
@@ -424,7 +455,8 @@
                                 class="w-8 h-8 rounded-full overflow-hidden"
                             >
                                 <img
-                                    src="{% static 'images/blank-profile-picture.png' %}"
+                                    src="https://ui-avatars.com/api/?name={{acc.seller.profile.first_name}}+{{acc.seller.profile.surname}}"
+                                    {% comment %} src="{% static 'images/blank-profile-picture.png' %}" {% endcomment %}
                                     alt=""
                                     class="object-cover object-center overflow-hidden"
                                 />
@@ -566,7 +598,8 @@
                         >
                             <div class="w-8 h-8 rounded-full overflow-hidden">
                                 <img
-                                    src="{% static 'images/blank-profile-picture.png' %}"
+                                    src="https://ui-avatars.com/api/?name={{rl.seller.profile.first_name}}+{{rl.seller.profile.surname}}"
+                                    {% comment %} src="{% static 'images/blank-profile-picture.png' %}" {% endcomment %}
                                     alt=""
                                     class="object-cover object-center overflow-hidden"
                                 />

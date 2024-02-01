@@ -15,6 +15,14 @@ def index(request):
         'recent_listings': Listing.objects.filter(is_sold=False).order_by('-created_at')[:4],
     }
     
+    context['fcategory_total_listings'] = [
+        Listing.objects.filter(category='desktops').count(),
+        Listing.objects.filter(category='laptops & notebooks').count(),
+        Listing.objects.filter(category='consoles').count(),
+        Listing.objects.filter(category='videogames').count(),
+        Listing.objects.filter(category='accessories').count(),
+    ]
+    
     return render(request, 'topfragmarket/pages/index.html', context)
 
 def register_user(request):
@@ -137,7 +145,18 @@ def about(request):
     return render(request, 'topfragmarket/pages/about.html')
 
 def categories(request):
-    return render(request, 'topfragmarket/pages/categories.html')
+    context = {
+        'total_listings_by_category': [
+            Listing.objects.filter(category='desktops').count(),
+            Listing.objects.filter(category='laptops & notebooks').count(),
+            Listing.objects.filter(category='phones & tablets').count(),
+            Listing.objects.filter(category='consoles').count(),
+            Listing.objects.filter(category='videogames').count(),
+            Listing.objects.filter(category='audio').count(),
+            Listing.objects.filter(category='accessories').count(),
+        ]
+    }
+    return render(request, 'topfragmarket/pages/categories.html', context)
 
 @login_required
 @profile_required

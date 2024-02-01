@@ -5,10 +5,16 @@
     {% comment %} You are now logged in! {% endcomment %}
     <section class="">
         <div class="container mx-auto px-5 py-10 flex justify-between">
-            <h1 class="grow-[1]">
-                <p class="text-2xl font-bold">{{ profile.first_name }} {{ profile.surname }}</p>
-                <p class="text-gray-600">@{{ profile.user }}</p>
-            </h1>
+            <div class="grow-[1] flex items-center gap-x-3">
+                <div class="w-16 h-16 overflow-hidden rounded-full">
+                    <img src="https://ui-avatars.com/api/?name={{profile.first_name}}+{{profile.surname}}" alt="User profile" class="w-full h-full object-cover object-center">
+                </div>
+
+                <h1>
+                    <p class="text-2xl font-bold">{{ profile.first_name }} {{ profile.surname }}</p>
+                    <p class="text-gray-600">@{{ profile.user }}</p>
+                </h1>
+            </div>
 
             <div class="grow-[1] flex flex-wrap gap-2">
                 <div class="w-[49%] bg-white rounded-md px-6 py-2">
